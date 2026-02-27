@@ -2,6 +2,9 @@
 budgetproject/.env
 budgetproject/*.pyc
 budgetproject/account/__pycache__/
+budgetproject/__pycache__/
 budgetproject/budgetproject/__pycache__/
 budgetproject/users/__pycache__/
+budgetproject/category/__pycache__/
 db.sqlite3
+.gitignore
