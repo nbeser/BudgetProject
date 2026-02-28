@@ -2,9 +2,6 @@ from django.db import models
 from django.conf import settings
 from django.core.exceptions import ValidationError
 
-
-
-
 class Category(models.Model):
 
     class CategoryType(models.TextChoices):
@@ -31,8 +28,10 @@ class Category(models.Model):
 
             if self.parent.parent:
                 raise ValidationError("Only one level of nesting allowed.")
-
-    
+            
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.name} ({self.type})"
