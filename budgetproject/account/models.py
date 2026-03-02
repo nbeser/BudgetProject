@@ -1,5 +1,7 @@
 from django.db import models
 from django.conf import settings
+from django.db.models import Sum, Case, When, F, DecimalField
+
 
 ACCOUNT_TYPES = [
     ("cash", "Cash"),
@@ -14,7 +16,6 @@ class Account(models.Model):
     name = models.CharField(max_length=100)
     account_type = models.CharField(max_length=20, choices=ACCOUNT_TYPES, default="cash")
     currency = models.CharField(max_length=3, db_index=True)
-    balance = models.DecimalField(max_digits=14, decimal_places=2, default=0)
 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -35,5 +36,18 @@ class Account(models.Model):
             self.currency = self.currency.upper()
         super().save(*args, **kwargs)
 
+    @property
+    def balance(self):
+        total = self.transaction_account.aggregate(
+            total=Sum(
+                Case(
+                    When(category__type="income", then=F("amount")),
+                    When(category__type="expense", then=-F("amount")),
+                    output_field=DecimalField()
+                )
+            )
+        )["total"]
+        return total or 0
+
     def __str__(self):
-        return f"{self.name} ({self.currency})"
+        return f"{self.name} ({self.user.username})"

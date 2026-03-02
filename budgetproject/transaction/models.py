@@ -6,7 +6,6 @@ from category.models import Category
 from django.core.exceptions import ValidationError
 
 
-
 class Transaction(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="transactions")
@@ -15,7 +14,7 @@ class Transaction(models.Model):
     amount = models.DecimalField(max_digits=14, decimal_places=2, default=0)  
     currency = models.CharField(max_length=3, db_index=True)
 
-    description = models.TextField()
+    description = models.TextField(blank=True, null=True)
     transaction_date = models.DateTimeField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -35,4 +34,4 @@ class Transaction(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.account.name}"
+        return f"{self.account.name} - {self.amount} {self.currency}"

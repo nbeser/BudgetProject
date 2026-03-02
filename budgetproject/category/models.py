@@ -34,4 +34,6 @@ class Category(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.name} ({self.type})"
+        if self.parent:
+            return f"{self.parent.name} > {self.name} ({self.user.username})"
+        return f"{self.name} ({self.user.username})"
