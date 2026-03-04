@@ -1,6 +1,8 @@
 from django.db import models
 from django.conf import settings
 from django.db.models import Sum, Case, When, F, DecimalField
+from category.models import Category
+from django.db import transaction as db_transaction
 
 
 ACCOUNT_TYPES = [
@@ -32,10 +34,35 @@ class Account(models.Model):
         ]
 
     def save(self, *args, **kwargs):
+        is_new = self.pk is None
+        opening_balance = getattr(self, "_opening_balance", None)
         if self.currency:
             self.currency = self.currency.upper()
-        super().save(*args, **kwargs)
 
+        with db_transaction.atomic():
+            super().save(*args, **kwargs)
+
+            if is_new and opening_balance and opening_balance != 0:
+                category, _ = Category.objects.get_or_create(
+                    user=self.user,
+                    name="Opening Balance",
+                    type=Category.CategoryType.INCOME,
+                    parent=None,
+                    defaults={"is_system": True},
+                )
+
+                from transaction.models import Transaction
+
+                Transaction.objects.create(
+                    user=self.user,
+                    account=self,
+                    category=category,
+                    amount=opening_balance,
+                    currency=self.currency,
+                    transaction_date=self.created,
+                    description="Opening Balance"
+                )
+   
     @property
     def balance(self):
         total = self.transaction_account.aggregate(

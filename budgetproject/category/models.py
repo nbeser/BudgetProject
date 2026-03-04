@@ -12,6 +12,7 @@ class Category(models.Model):
     type = models.CharField(max_length=10, choices=CategoryType.choices)
     is_active = models.BooleanField(default=True)
     parent = models.ForeignKey("self", on_delete=models.SET_NULL, null=True, blank=True, related_name="children")
+    is_system = models.BooleanField(default=False)
 
     class Meta:
         constraints = [
