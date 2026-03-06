@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'account',
     'category',
     'transaction',
+    'recurring',
 ]
 
 MIDDLEWARE = [
