@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'category',
     'transaction',
     'recurring',
+    'budgets',
 ]
 
 MIDDLEWARE = [
