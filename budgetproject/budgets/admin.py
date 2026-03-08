@@ -13,6 +13,9 @@ class BudgetAdmin(admin.ModelAdmin):
         "category",
         "account",
         "amount",
+        "spent",
+        "remaining",
+        "progress",
         "start_date",
         "end_date",
         "is_active",
@@ -23,10 +26,15 @@ class BudgetAdmin(admin.ModelAdmin):
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
 
         if db_field.name == "category":
-            kwargs["queryset"] = Category.objects.filter(
-                user=request.user,
-                type="expense",
-                is_active=True
-            )
+            kwargs["queryset"] = Category.objects.filter(user=request.user, type="expense", is_active=True)
 
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
+    
+    def spent(self, obj):
+        return obj.spent_amount
+
+    def remaining(self, obj):
+        return obj.remaining_amount
+
+    def progress(self, obj):
+        return f"{obj.progress_percentage:.1f}%"

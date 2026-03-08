@@ -6,6 +6,9 @@ from category.models import Category
 
 from django.core.exceptions import ValidationError
 
+from transaction.models import Transaction
+from django.db.models import Sum
+
 
 class Budget(models.Model):
 
@@ -33,6 +36,37 @@ class Budget(models.Model):
 
         if self.category.user != self.user:
             raise ValidationError("Category must belong to the same user.")
+        
+
+    @property
+    def spent_amount(self):
+
+        transactions = Transaction.objects.filter(
+            user=self.user,
+            category=self.category,
+            transaction_date__gte=self.start_date,
+            transaction_date__lte=self.end_date,
+        )
+
+        if self.account:
+            transactions = transactions.filter(account=self.account)
+
+        total = transactions.aggregate(total=Sum("amount"))["total"]
+
+        return total or 0
+
+    @property
+    def remaining_amount(self):
+        return self.amount - self.spent_amount
+    
+    @property
+    def progress_percentage(self):
+
+        if self.amount == 0:
+            return 0
+
+        return (self.spent_amount / self.amount) * 100
+
 
     def __str__(self):
         return f"{self.category.name} - {self.amount}"

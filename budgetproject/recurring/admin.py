@@ -34,10 +34,7 @@ class RecurringTransactionAdmin(admin.ModelAdmin):
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
 
-        if db_field.name == "category":
-            kwargs["queryset"] = Category.objects.filter(
-                user=request.user,
-                is_system=False
-            )
+        if db_field.name == "category": 
+            kwargs["queryset"] = Category.objects.filter(user=request.user, is_system=False)
 
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
