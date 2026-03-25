@@ -13,6 +13,7 @@ class Category(models.Model):
     is_active = models.BooleanField(default=True)
     parent = models.ForeignKey("self", on_delete=models.SET_NULL, null=True, blank=True, related_name="children")
     is_system = models.BooleanField(default=False)
+    is_parent = models.BooleanField(default=False, editable=False)
 
     class Meta:
         constraints = [
@@ -31,6 +32,8 @@ class Category(models.Model):
                 raise ValidationError("Only one level of nesting allowed.")
             
     def save(self, *args, **kwargs):
+        if self.parent:
+            Category.objects.filter(id=self.parent.id).update(is_parent=True)
         self.full_clean()
         super().save(*args, **kwargs)
 

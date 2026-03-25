@@ -3,6 +3,7 @@ from django.conf import settings
 from django.db.models import Sum, Case, When, F, DecimalField
 from category.models import Category
 from django.db import transaction as db_transaction
+from django.utils import timezone
 
 
 ACCOUNT_TYPES = [
@@ -59,7 +60,7 @@ class Account(models.Model):
                     category=category,
                     amount=opening_balance,
                     currency=self.currency,
-                    transaction_date=self.created,
+                    transaction_date=timezone.now(),
                     description="Opening Balance"
                 )
    
