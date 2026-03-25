@@ -26,7 +26,7 @@ class Transaction(models.Model):
         if self.category.user != self.user:
             raise ValidationError("Category must belong to the same user.")
 
-        if self.category.is_parent():
+        if self.category.is_parent:
             raise ValidationError("Cannot assign transaction to parent category.")
     
     def save(self, *args, **kwargs):
