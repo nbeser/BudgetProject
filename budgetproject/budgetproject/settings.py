@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'transaction',
     'recurring',
     'budgets',
+    'api',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -133,3 +135,11 @@ STATIC_URL = 'static/'
 
 
 AUTH_USER_MODEL = "users.User"
+
+
+# REST_FRAMEWORK = {
+#     "DEFAULT_RENDERER_CLASSES": [
+#         "rest_framework.renderers.JSONRenderer",
+#         "rest_framework.renderers.BrowsableAPIRenderer",
+#     ],
+# }
