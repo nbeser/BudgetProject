@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'budgets',
     'api',
     'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -137,9 +138,8 @@ STATIC_URL = 'static/'
 AUTH_USER_MODEL = "users.User"
 
 
-# REST_FRAMEWORK = {
-#     "DEFAULT_RENDERER_CLASSES": [
-#         "rest_framework.renderers.JSONRenderer",
-#         "rest_framework.renderers.BrowsableAPIRenderer",
-#     ],
-# }
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}

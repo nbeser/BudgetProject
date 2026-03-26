@@ -1,3 +1,5 @@
+from rest_framework.authtoken.models import Token
+
 from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth import get_user_model
@@ -25,4 +27,13 @@ class SignUpSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_data.pop("password2")
         user = User.objects.create_user(**validated_data)
+        Token.objects.create(user=user)
+        # token, _ = Token.objects.get_or_create(user=user)
         return user 
+    
+class LogInSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField()
+    password = serializers.CharField(write_only=True)
+    class Meta:
+        model = User
+        fields = ["email", "password"]
