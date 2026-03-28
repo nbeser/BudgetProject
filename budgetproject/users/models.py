@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.utils.text import slugify
+
 
 import uuid
 
@@ -34,6 +36,24 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ['username']
 
     objects = CustomUserManager()
+
+    def save(self, *args, **kwargs):
+        if not self.username:
+            if self.first_name:
+                base_username = slugify(self.first_name)
+            elif self.email:
+                base_username = slugify(self.email.split("@")[0])
+            else:
+                base_username = "user"
+
+            username = base_username    
+            counter = 1
+
+            while self.__class__.objects.filter(username=username).exists():
+                username = f"{slugify(base_username)}{counter}"
+                counter += 1
+            self.username = username
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.username
