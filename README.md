@@ -4,5 +4,6 @@
 * DB is PostgreSQL
 * DB (models) created. Runing time to time to catch bugs or unliked codes.
 * First API is created (for Users). API scheme is created.
-* ...
+* User signuo and login APIs completed.
+* Category APIs are underway...
 
