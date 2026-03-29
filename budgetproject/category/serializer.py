@@ -14,3 +14,10 @@ class CategoryListSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             "user" : {"read_only" : True}
         }
+
+
+class CategoryDetailsSerializer(serializers.ModelSerializer):
+    user = serializers.SlugRelatedField(read_only=True, slug_field="username")
+    class Meta:
+        model = Category
+        fields = ["id", "user", "name", "type", "is_active", "is_system", "is_parent"]

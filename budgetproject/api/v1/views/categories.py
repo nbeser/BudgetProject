@@ -1,5 +1,5 @@
 from rest_framework import generics
-from category.serializer import CategoryListSerializer
+from category.serializer import CategoryListSerializer, CategoryDetailsSerializer
 from category.models import Category
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.exceptions import ValidationError
@@ -32,6 +32,7 @@ class CategoryListView(generics.ListAPIView):
 
 
 class CategoryListCreateView(generics.ListCreateAPIView):
+    "User: Category/ies list/create"
     serializer_class = CategoryListSerializer
     permission_classes = [IsAuthenticated]
 
@@ -43,3 +44,12 @@ class CategoryListCreateView(generics.ListCreateAPIView):
         if Category.objects.filter(user=self.request.user, name=name).exists():
             raise ValidationError({"message": "You already have this category."})
         serializer.save(user=self.request.user)
+
+class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = CategoryDetailsSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Category.objects.filter(user=self.request.user)
+    
+    
