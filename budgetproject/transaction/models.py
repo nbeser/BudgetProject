@@ -4,6 +4,7 @@ from django.conf import settings
 from account.models import Account
 from category.models import Category
 from django.core.exceptions import ValidationError
+from django.utils import timezone
 
 
 class Transaction(models.Model):
@@ -15,7 +16,7 @@ class Transaction(models.Model):
     currency = models.CharField(max_length=3, db_index=True)
 
     description = models.TextField(blank=True, null=True)
-    transaction_date = models.DateTimeField()
+    transaction_date = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
