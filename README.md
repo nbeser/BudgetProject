@@ -1,10 +1,9 @@
 [under creation] A web application project to track income and expanses with some extra features...
 
-* Development plan is models > API > Frontend dashboard
-* DB is PostgreSQL
-* DB (models) created. Runing time to time to catch bugs or unliked codes.
-* First API is created (for Users). API scheme is created.
-* User signup and login APIs completed.
-* Category APIs completed.
-* Transaction API is underway... 
 
+* Features:
+- Full CRUD API (Django REST Framework)
+- User-based data isolation
+- Ownership validation (account & category)
+- Secure update/delete permissions
+- Clean architecture with serializers & views
