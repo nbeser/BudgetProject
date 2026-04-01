@@ -20,7 +20,25 @@ class TransactionByUser(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Transaction.objects.filter(user=self.request.user)
+        queryset = Transaction.objects.filter(user=self.request.user)
+    
+        start = self.request.query_params.get("start")
+        end = self.request.query_params.get("end")
+        account = self.request.query_params.get("account")
+        category = self.request.query_params.get("category")
+        category_type = self.request.query_params.get("type")
+
+        if start:
+            queryset = queryset.filter(transaction_date__gte=start)
+        if end:
+            queryset = queryset.filter(transaction_date__lte=end)
+        if account:
+            queryset = queryset.filter(account_id=account)
+        if category:
+            queryset = queryset.filter(category_id=category)
+        if category_type:
+            queryset = queryset.filter(category__type=category_type)
+        return queryset.order_by("-transaction_date")
     
     def perform_create(self, serializer):
         transaction_date = serializer.validated_data.get("transaction_date")
@@ -34,6 +52,11 @@ class TransactionByUser(generics.ListCreateAPIView):
             user=self.request.user,
             transaction_date=transaction_date
         )
+
+
+    
+
+
 
 class TransactionDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TransactionDetailSerializer
