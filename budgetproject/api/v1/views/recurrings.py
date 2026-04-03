@@ -37,4 +37,20 @@ class RecurringByUser(generics.ListCreateAPIView):
             start_date = start_date
         )
     
+
+class RecurringDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = RecurringDetailSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return RecurringTransaction.objects.filter(user=self.request.user)
     
+    def perform_update(self, serializer):
+        category = serializer.validated_data.get("category")
+
+        if category and category.is_parent:
+            raise ValidationError({
+                "category": "Parent category cannot be used for (recurring)transactions."
+            })
+
+        serializer.save()

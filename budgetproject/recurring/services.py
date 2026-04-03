@@ -4,6 +4,10 @@ from django.db import transaction
 from transaction.models import Transaction
 from .models import RecurringTransaction
 
+from django.utils import timezone
+
+import calendar
+
 def should_run(rule, today):
 
     if rule.last_run == today:
@@ -19,7 +23,9 @@ def should_run(rule, today):
         return today.weekday() == rule.start_date.weekday()
 
     if rule.frequency == "monthly":
-        return today.day == rule.start_date.day
+        last_day = calendar.monthrange(today.year, today.month)[1]
+        run_day = min(rule.start_date.day, last_day)
+        return today.day == run_day
 
     if rule.frequency == "yearly":
         return (
@@ -35,22 +41,33 @@ def run_recurring_transactions():
 
     recurring_rules = RecurringTransaction.objects.filter(is_active=True)
 
-    for i in recurring_rules:
+    with transaction.atomic():
+        for i in recurring_rules:
 
-        if not should_run(i, today):
-            continue
-        # if i.last_run == today:
-        #     continue
+            if not should_run(i, today):
+                continue
+            if Transaction.objects.filter(
+                user=i.user,
+                account=i.account,
+                category=i.category,
+                amount=i.amount,
+                transaction_date__date=today
+            ).exists():
+                continue
 
-        Transaction.objects.create(
-            user=i.user,
-            account=i.account,
-            category=i.category,
-            amount=i.amount,
-            currency=i.currency,
-            description=i.description,
-            transaction_date=today
-        )
+            
+            # if i.last_run == today:
+            #     continue
 
-        i.last_run = today
-        i.save()
+            Transaction.objects.create(
+                user=i.user,
+                account=i.account,
+                category=i.category,
+                amount=i.amount,
+                currency=i.currency,
+                description=i.description,
+                transaction_date=timezone.now()
+            )
+
+            i.last_run = today
+            i.save()
