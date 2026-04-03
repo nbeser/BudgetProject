@@ -2,6 +2,9 @@ from django.db import models
 from django.conf import settings
 import uuid
 
+from django.utils import timezone
+
+
 from account.models import Account
 from category.models import Category
 
@@ -25,7 +28,7 @@ class RecurringTransaction(models.Model):
 
     frequency = models.CharField(max_length=20, choices=Frequency.choices)
 
-    start_date = models.DateField()
+    start_date = models.DateField(default=timezone.now)
     last_run = models.DateField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
 
