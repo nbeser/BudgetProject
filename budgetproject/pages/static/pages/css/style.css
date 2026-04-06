@@ -1,0 +1,44 @@
+/* DEFAULT: show bottom, hide top */
+.custom-top-nav {
+    display: none;
+}
+
+.custom-bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    background: white;
+    padding: 10px 0;
+    border-top: 1px solid #e5e7eb;
+
+    z-index: 1000;
+}
+
+/* DESKTOP VIEW */
+@media (min-width: 1000px) {
+
+    .custom-top-nav {
+        display: block;
+    }
+
+    .custom-bottom-nav {
+        display: none;
+    }
+}
+
+.custom-bottom-nav a {
+    text-decoration: none;
+    color: #334155;
+    font-size: 14px;
+    text-align: center;
+}
+
+.custom-bottom-nav a:hover {
+    color: #2563eb;
+}

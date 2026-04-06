@@ -1,0 +1,27 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
+
+    {% block css_files %} {% endblock %}
+
+    <title>BUDGET PROJECT | {% block title %} {% endblock %}</title>
+</head>
+<body style="padding-bottom: 70px;">
+
+    {% include "partials/_navbar.html" %}
+
+    {% block content %}{% endblock content %}
+
+    {% include "partials/_bottom.html" %}
+    
+</body>
+
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    {% block js_files %}{% endblock %}
+
+</html>

@@ -1,0 +1,28 @@
+{% load static %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'pages/css/style.css' %}">
+{% endblock %}
+
+<!-- TOP NAVBAR (desktop) -->
+<nav class="navbar navbar-expand-lg sticky-top custom-top-nav bg-secondary">
+  <div class="container">
+    <a class="navbar-brand" href="#">BUDGET PROJECT</a>
+
+    <div class="collapse navbar-collapse show">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<!-- BOTTOM NAVBAR (mobile) -->
+<nav class="custom-bottom-nav">
+  <a href="#">Home</a>
+  <a href="#">Services</a>
+  <a href="#">Projects</a>
+  <a href="#">Profile</a>
+</nav>
