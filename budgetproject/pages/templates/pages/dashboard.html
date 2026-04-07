@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+
+{% block title %}
+    Dashboard | {{ request.user.username }}
+{% endblock %}
+
+{% block content %} 
+
+
+<h2>Dashboard</h2>
+
+<!-- SUMMARY CARDS -->
+<div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+
+    <div class="card" style="flex: 1;">
+        <h3>Toplam</h3>
+        <p>{{ toplam }}</p>
+    </div>
+
+    <div class="card" style="flex: 1;">
+        <h3>Gelir (Son Ay)</h3>
+        <p>{{ gelir }}</p>
+    </div>
+
+    <div class="card" style="flex: 1;">
+        <h3>Gider (Son Ay)</h3>
+        <p>{{ gider }}</p>
+    </div>
+
+</div>
+
+<!-- RECENT TRANSACTIONS -->
+<h3 style="margin-top: 2rem;">Son İşlemler</h3>
+
+{% for t in son_islemler %}
+    <div class="card">
+        <strong>{{ t.amount }} {{ t.currency }}</strong><br>
+        {{ t.category }} - {{ t.account }}<br>
+        <small>{{ t.transaction_date }}</small>
+    </div>
+{% empty %}
+    <p>Henüz bir işlem yapmadınız.</p>
+{% endfor %}
+
+
+
+{% endblock content %}

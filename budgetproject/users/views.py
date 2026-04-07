@@ -15,6 +15,8 @@ def user_login(request):
             user = form.get_user()     
             login(request, user)
             
+            return redirect("user_dashboard")
+        
         else:
             form.add_error(None, "Geçersiz email yada şifre.")
     else:
