@@ -1,0 +1,5 @@
+<div class="ozel">
+    {% for i in toplam_hesap %}
+    <a href="#" class="{% if secili_hesap == i.0 %}active{% endif %} text-decoration-none ozel-item">{{ i.0|title }} - {{ i.1 }} {{ i.2 }}</a>
+    {% endfor %}
+</div>

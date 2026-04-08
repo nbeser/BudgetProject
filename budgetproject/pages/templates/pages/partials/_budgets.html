@@ -1,0 +1,35 @@
+{% load static %}
+
+<div class="ms-2">
+
+<h3 class="mt-2 text-center">Cüzdan</h3>
+
+{% for b in budgets %}
+<div class="card rounded-pill text-center overflow-hidden border-0 shadow m-5">
+    <div class="card-body bg-light">
+        <strong>{{ b.category.name }}</strong>
+        <br>
+        Bakiye: {{ b.amount }}
+        <br>
+        Harcanan: {{ b.spent_amount }}
+        <br>
+        Kalan: {{ b.remaining_amount }}
+        <br>
+    </div>
+    <div class="progress-bar-container">
+        <div 
+            class="progress-bar" 
+            data-progress="{{ b.progress_percentage|floatformat:0 }}">
+        </div>
+        <span class="progress-text">0%</span>
+    </div>    
+</div>
+
+
+{% empty %}
+<p>No budgets defined.</p>
+{% endfor %}
+
+</div>
+
+

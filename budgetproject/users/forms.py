@@ -40,18 +40,19 @@ class UserSignupForm(UserCreationForm):
     )
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ("email", "password1", "password2", "first_name", "last_name")
+        fields = ("email", "password1", "password2")
+        # fields = ("email", "password1", "password2", "first_name", "last_name")
         widgets = {
             "email": forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'E-mail'}),
-            "first_name": forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'İsim'}),
-            "last_name": forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Soy İsim'}),
+            # "first_name": forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'İsim'}),
+            # "last_name": forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Soy İsim'}),
         }
         labels = {
             "email": "E-Mail",
             "password1": "Parola",
             "password2": "Parola Tekrar",
-            "first_name": "İsim",
-            "last_name": "Soy İsim"
+            # "first_name": "İsim",
+            # "last_name": "Soy İsim"
         }
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

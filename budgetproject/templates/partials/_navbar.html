@@ -20,9 +20,9 @@
 
 
 <!-- BOTTOM NAVBAR (mobile) -->
-<nav class="custom-bottom-nav">
-  <a href="#">Home</a>
-  <a href="#">Services</a>
+<nav class="custom-bottom-nav bg-secondary">
+  <a href="{% url 'user_dashboard' %}">Dashboard</a>
+  <a href="#">İşlem Yap</a>
   <a href="#">Projects</a>
-  <a href="#">Profile</a>
+  <a href="{% url 'user_logout' %}">Çıkış</a>
 </nav>

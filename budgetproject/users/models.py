@@ -31,6 +31,7 @@ class CustomUserManager(BaseUserManager):
 class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(unique=True)
+    username = models.CharField(max_length=150, unique=True, blank=True, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
@@ -39,21 +40,20 @@ class User(AbstractUser):
 
     def save(self, *args, **kwargs):
         if not self.username:
-            if self.first_name:
-                base_username = slugify(self.first_name)
-            elif self.email:
-                base_username = slugify(self.email.split("@")[0])
-            else:
-                base_username = "user"
-
-            username = base_username    
+            base = f"user_{str(self.id)[:8]}"
+            username = base
             counter = 1
 
-            while self.__class__.objects.filter(username=username).exists():
-                username = f"{slugify(base_username)}{counter}"
+            while User.objects.filter(username=username).exists():
+                username = f"{base}_{counter}"
                 counter += 1
+
             self.username = username
         super().save(*args, **kwargs)
 
+    @property
+    def display_name(self):
+        return self.first_name or self.username or self.email
+    
     def __str__(self):
         return self.username
