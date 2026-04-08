@@ -6,4 +6,5 @@ urlpatterns = [
     path("transactions/", include("api.v1.urls.transactions")),
     path("recurrings/", include("api.v1.urls.recurrings")),
     path("accounts/", include("api.v1.urls.accounts")),
+    path("budgets/", include("api.v1.urls.budgets")),
 ]
