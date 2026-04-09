@@ -7,23 +7,22 @@
 {% endblock %}
 
 {% block title %}
-    Dashboard | {{ request.user.username }}
+    Budget | {{ request.user.username }}
 {% endblock %}
 
 {% block content %} 
 
 <div class="text-center text-secondary bg-body-tertiary">
     <div class="container py-5">
-        <h2>Hoşgeldin {{ user.display_name }}</h2>
+        <h2>{{ user.display_name }}</h2>
         <hr><br>
-        <h3>Hesap Toplam: {{ toplam }} TRY</h3>
+        <h3>Kayıtlı Harcamalar</h3>
     </div>
 </div>
 
 
 {% include "pages/partials/_accounts_nav.html" %}
-{% include "pages/partials/_recent_transactions.html" %}
-
+{% include "pages/partials/_budgets.html" %}
 
 
 {% endblock content %}

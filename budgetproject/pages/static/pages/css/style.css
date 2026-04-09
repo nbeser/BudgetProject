@@ -3,6 +3,23 @@
     display: none;
 }
 
+.navbar-nav > li { 
+    padding-left: 20px; 
+    padding-right: 20px; 
+}
+
+.custom-top-nav a {
+    text-decoration: none;
+    color: #edeff1;
+    font-size: 14px;
+    text-align: center;
+}
+
+.custom-top-nav a:hover {
+    color: #c7f411;
+}
+
+
 .custom-bottom-nav {
     position: fixed;
     bottom: 0;
@@ -34,13 +51,13 @@
 
 .custom-bottom-nav a {
     text-decoration: none;
-    color: #334155;
+    color: #edeff1;
     font-size: 14px;
     text-align: center;
 }
 
 .custom-bottom-nav a:hover {
-    color: #2563eb;
+    color: #c7f411;
 }
 
 
@@ -136,4 +153,39 @@
     font-weight: 600;
     font-size: 14px;
     pointer-events: none;
+}
+
+
+
+
+
+
+.budget-card {
+    overflow: hidden;
+    background-color: #d9e9db;
+    opacity: 0.8;
+    top: 72px;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.budget-card div, strong {
+  color: #131111;
+  text-align: center;
+  font-weight: 600;
+  padding: 10px;
+  text-decoration: none;
+  flex-shrink: inherit;
+  display: inline-block;
+  float: none;
+}
+
+.ozel a:hover {
+  background: #f1f1f1;
+  color: rgb(123, 162, 18);
+}
+
+.ozel a.active {
+  background-color: #030907;
+  color: white;
 }

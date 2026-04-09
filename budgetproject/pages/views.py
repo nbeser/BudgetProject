@@ -17,8 +17,6 @@ def pages_index(request):
 def user_dashboard(request):
     user = request.user
     today = timezone.now()
-    
-    budgets = Budget.objects.filter(user=user, is_active=True)
 
     transactions = Transaction.objects.filter(user=user)
 
@@ -39,7 +37,6 @@ def user_dashboard(request):
     recent_transactions = transactions.order_by("-transaction_date")[:5]
 
     context = {
-        "budgets": budgets,
         "hesaplar": accounts,
         "secili_hesap": [(i.name for i in accounts)],
         "aylik_islem": monthly_transactions,
@@ -51,5 +48,22 @@ def user_dashboard(request):
     }
     
     return render(request, "pages/dashboard.html", context)
+
+
+@login_required()
+def get_budget(request):
+    user = request.user
+    budgets = Budget.objects.filter(user=user, is_active=True)
+    accounts = Account.objects.filter(user=user, is_active=True)
+    total_by_account = [(i.name.capitalize(), i.balance, i.currency.upper()) for i in accounts ]
+
+
+    context = {
+        "hesaplar": accounts,
+        "secili_hesap": [(i.name for i in accounts)],
+        "budgets": budgets,
+        "toplam_hesap": total_by_account,
+    }
+    return render(request, "pages/budgets.html", context)
 
 

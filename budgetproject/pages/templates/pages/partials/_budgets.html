@@ -4,6 +4,8 @@
 
 <h3 class="mt-2 text-center">Cüzdan</h3>
 
+
+
 {% for b in budgets %}
 <div class="card rounded-pill text-center overflow-hidden border-0 shadow m-5">
     <div class="card-body bg-light">
@@ -23,13 +25,10 @@
         </div>
         <span class="progress-text">0%</span>
     </div>    
-</div>
-
+</div> 
 
 {% empty %}
 <p>No budgets defined.</p>
 {% endfor %}
 
 </div>
-
-

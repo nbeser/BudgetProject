@@ -1,0 +1,14 @@
+{% load static %}
+
+
+{% for i in son_islemler %}
+<div class="card mt-2">
+  <div class="card-header">
+    {{ i.amount }} {{ i.currency }} {{ i.category.type }}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">İşlem yapılan hesap: <strong>{{ i.account }}</strong></h5>
+    <p class="card-text">{{ i.description }}</p>
+  </div>
+</div>
+{% endfor %}
