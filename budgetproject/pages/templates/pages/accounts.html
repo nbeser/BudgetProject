@@ -16,13 +16,21 @@
     <div class="container py-5">
         <h2>{{ user.display_name }}</h2>
         <hr><br>
-        <h3>Oluşturduğun Harcama Planların</h3>
+        <h3>"{{ hesap.name }}" hesabındaki işlemler gösterilmektedir.</h3>
     </div>
 </div>
 
-
 {% include "pages/partials/_accounts_nav.html" %}
-{% include "pages/partials/_budgets.html" %}
+
+
+<div class="container mt-3">
+    <h3>Açılış Tarihi: {{ acilis|date:"d F Y H:i" }}</h3>
+
+
+</div>
+
+
+
 
 
 {% endblock content %}

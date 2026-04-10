@@ -8,15 +8,19 @@
     padding-right: 20px; 
 }
 
-.custom-top-nav a {
+.custom-top-nav .nav-link {
     text-decoration: none;
     color: #edeff1;
     font-size: 14px;
     text-align: center;
 }
 
-.custom-top-nav a:hover {
+.custom-top-nav .nav-link:hover {
     color: #c7f411;
+}
+
+.custom-top-nav .nav-link.active {
+    border-bottom: 2px solid #c7f411;
 }
 
 
@@ -49,16 +53,21 @@
     }
 }
 
-.custom-bottom-nav a {
+.custom-bottom-nav .nav-link {
     text-decoration: none;
     color: #edeff1;
     font-size: 14px;
     text-align: center;
 }
 
-.custom-bottom-nav a:hover {
+.custom-bottom-nav .nav-link:hover {
     color: #c7f411;
 }
+
+.custom-bottom-nav .nav-link.active {
+    border-bottom: 2px solid #c7f411;
+}
+
 
 
 

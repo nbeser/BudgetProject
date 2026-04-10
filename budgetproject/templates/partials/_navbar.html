@@ -27,14 +27,13 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-secondary sticky-top custom-top-nav" style="opacity: 0.8;">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="#" style="font-family:Arial, Helvetica, sans-serif">BUDGET PROJECT</a>
+        <a class="navbar-brand fw-bold nav-link {% if request.resolver_match.url_name == 'pages_index' %}active{% endif %}" href="{% url 'pages_index' %}" style="font-family:Arial, Helvetica, sans-serif">BUDGET PROJECT</a>
         <div class="collapse navbar-collapse show">
             <ul class="navbar-nav ms-auto">
               {% if user.is_authenticated %}
-                <li class="nav-item"><a href="{% url 'user_dashboard' %}">Dashboard</a></li>
-                <li class="nav-item"><a href="{% url 'get_budget' %}">Budgets</a></li>
-                <li class="nav-item"><a href="#">Projects</a></li>
-                <li class="nav-item"><a href="{% url 'user_logout' %}">Çıkış</a></li>
+                <li class="nav-item"><a class="nav-link {% if request.resolver_match.url_name == 'user_dashboard' %}active{% endif %}" href="{% url 'user_dashboard' %}" title="Kullanıcı paneli.">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link {% if request.resolver_match.url_name == 'get_budget' %}active{% endif %}" href="{% url 'get_budget' %}"title="Oluşturduğun harcama planların.">Budgets</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'user_logout' %}">Çıkış</a></li>
               {% else %}
                 <li class="nav-item"><a href="{% url 'user_login' %}">Girş Yap</a></li>
                 <li class="nav-item"><a href="{% url 'user_register' %}">Üye Ol</a></li>
@@ -47,15 +46,16 @@
 <!-- BOTTOM NAVBAR (mobile) -->
 {% if user.is_authenticated %}
   <nav class="custom-bottom-nav bg-secondary">
-    <a href="{% url 'user_dashboard' %}">Dashboard</a>
-    <a href="{% url 'get_budget' %}">Budgets</a>
-    <a href="#">Projects</a>
-    <a href="{% url 'user_logout' %}">Çıkış</a>
+    <a href="{% url 'pages_index' %}" class="nav-link {% if request.resolver_match.url_name == 'pages_index' %}active{% endif %}">B</a>
+    <a class="nav-link {% if request.resolver_match.url_name == 'user_dashboard' %}active{% endif %}" href="{% url 'user_dashboard' %}" title="Kullanıcı paneli.">Dashboard</a>
+    <a class="nav-link {% if request.resolver_match.url_name == 'get_budget' %}active{% endif %}" href="{% url 'get_budget' %}"title="Oluşturduğun harcama planların.">Budgets</a>
+    <a class="nav-link" href="{% url 'user_logout' %}">Çıkış</a>
   </nav>
 
 {% else %}
   <nav class="custom-bottom-nav bg-secondary">
-    <a href="{% url 'user_login' %}">Girş Yap</a>
-    <a href="{% url 'user_register' %}">Üye Ol</a>
+    <a class="nav-link" href="{% url 'pages_index' %}">B</a>
+    <a class="nav-link" href="{% url 'user_login' %}">Girş Yap</a>
+    <a class="nav-link" href="{% url 'user_register' %}">Üye Ol</a>
   </nav>
 {% endif %}
