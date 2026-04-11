@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 from django.utils import timezone
+from django.db.models import Sum, Case, When, F, DecimalField
 
 from transaction.models import Transaction
 from account.models import Account
@@ -38,13 +39,13 @@ def user_dashboard(request):
 
     context = {
         "hesaplar": accounts,
-        "secili_hesap": [(i.name for i in accounts)],
         "aylik_islem": monthly_transactions,
         "gelir": income,
         "gider": expense,
         "toplam": total_balance,
         "toplam_hesap": total_by_account,
-        "son_islemler": recent_transactions,   
+        "son_islemler": recent_transactions,  
+        "secili_hesap": [(i.name for i in accounts)],
     }
     
     return render(request, "pages/dashboard.html", context)
@@ -60,11 +61,29 @@ def get_budget(request):
 
     context = {
         "hesaplar": accounts,
-        "secili_hesap": [(i.name for i in accounts)],
         "budgets": budgets,
         "toplam_hesap": total_by_account,
+        "secili_hesap": [(i.name for i in accounts)],
     }
     return render(request, "pages/budgets.html", context)
+
+
+# @login_required
+# def accounts(request, name):
+#     user = request.user
+#     accounts = Account.objects.filter(user=user, is_active=True)
+#     account = Account.objects.get(user=user, is_active=True, name=name)
+#     created = account.created
+#     total_by_account = [(i.name.capitalize(), i.balance, i.currency.upper(), i.name) for i in accounts ]
+#     context = {
+#         "hesap": account,
+#         "acilis": created,
+#         "toplam_hesap": total_by_account,
+#         "secili_hesap": [(i.name for i in accounts)],
+#     }
+
+#     return render(request, "pages/accounts.html", context)
+
 
 
 @login_required
@@ -72,13 +91,37 @@ def accounts(request, name):
     user = request.user
     accounts = Account.objects.filter(user=user, is_active=True)
     account = Account.objects.get(user=user, is_active=True, name=name)
-    created = account.created
-    total_by_account = [(i.name.capitalize(), i.balance, i.currency.upper(), i.name) for i in accounts ]
+    transactions = Transaction.objects.filter(user=user, account__name=name)
+    account_transactions = transactions.order_by("-transaction_date")
+
+    summary = account.transaction_account.aggregate(
+        income=Sum(
+            Case(
+                When(category__type="income", then=F("amount")),
+                output_field=DecimalField()
+            )
+        ),
+        expense=Sum(
+            Case(
+                When(category__type="expense", then=F("amount")),
+                output_field=DecimalField()
+            )
+        )
+    )
+
+    income = summary["income"] or 0
+    expense = summary["expense"] or 0
+
+    total_by_account = [(i.name.capitalize(), i.balance, i.currency.upper(), i.name) for i in accounts]
+
     context = {
         "hesap": account,
-        "acilis": created,
+        "acilis": account.created,
         "toplam_hesap": total_by_account,
-        "secili_hesap": [(i.name for i in accounts)],
+        "income": float(income),
+        "expense": float(expense),
+        "son_islemler": account_transactions,
+        "secili_hesap": account.name,
     }
 
     return render(request, "pages/accounts.html", context)

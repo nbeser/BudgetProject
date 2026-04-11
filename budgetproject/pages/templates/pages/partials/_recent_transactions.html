@@ -3,13 +3,16 @@
 <h1 class="text-center text-muted p-3">Son İşlemler</h1>
 
 {% for i in son_islemler %}
-<div class="card mt-2 {% if i.category.type != "income" %} border-warning text-warning {% else %} border-success text-success {% endif %}">
+<div class="card mt-2 {% if i.category.type != "income" %} border-danger {% else %} border-success {% endif %}">
   <div class="card-header">
-    İşlem yapılan hesap: <b> {{ i.account }} </b></h5>
+    <h5>İşlem yapılan hesap: <b> {{ i.account }} </b></h5>
   </div>
-  <div class="card-body">
+  <div class="card-body {% if i.category.type != "income" %} text-danger {% else %} text-success {% endif %}">
     <h5 class="card-title">{{ i.amount }} {{ i.currency }} | {% if i.category.type == "expense" %} Gider {% else %} Gelir {% endif %}
     <p class="card-text">{{ i.description }}</p>
+  </div>
+  <div class="card-footer">
+    <h5>İşlem tarihi: {{ i.transaction_date|date:"d F Y H:i" }} </h5>
   </div>
 </div>
 {% endfor %}

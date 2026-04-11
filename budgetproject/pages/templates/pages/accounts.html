@@ -16,7 +16,8 @@
     <div class="container py-5">
         <h2>{{ user.display_name }}</h2>
         <hr><br>
-        <h3>"{{ hesap.name }}" hesabındaki işlemler gösterilmektedir.</h3>
+        <h3>"{{ hesap.name }}" hesabındaki işlemler gösterilmektedir.</h3><br>
+        <h3 class="text-success"><b>{{ hesap.balance }} {{ hesap.currency }}</b></h3>
     </div>
 </div>
 
@@ -24,11 +25,15 @@
 
 
 <div class="container mt-3">
-    <h3>Açılış Tarihi: {{ acilis|date:"d F Y H:i" }}</h3>
-
+    <h3 class="text-center p-4">Açılış Tarihi: {{ acilis|date:"d F Y H:i" }}</h3>
 
 </div>
 
+<div style="width: 300px; margin: auto;">
+    <canvas id="accountChart"></canvas>
+</div>
+
+    {% include "pages/partials/_recent_transactions.html" %}
 
 
 
@@ -37,4 +42,46 @@
 
 {% block js_files %}
 <script src="{% static 'pages/js/extra.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+
+<script>
+    const income = {{ income|safe }};
+    const expense = {{ expense|safe }};
+
+    const total = income + expense;
+
+    const ctx = document.getElementById('accountChart').getContext('2d');
+
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Gelir', 'Gider'],
+            datasets: [{
+                data: [income, expense],
+                backgroundColor: ['#28a745', '#dc3545']
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                },
+                datalabels: {
+                    color: '#fff',
+                    font: {
+                        weight: 'bold',
+                        size: 14
+                    },
+                    formatter: function(value) {
+                        if (total === 0) return '0%';
+                        let percentage = (value / total * 100).toFixed(1);
+                        return percentage + '%';
+                    }
+                }
+            }
+        },
+        plugins: [ChartDataLabels]
+    });
+</script>
 {% endblock %}

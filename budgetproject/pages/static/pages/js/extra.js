@@ -62,4 +62,3 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('ozelScroll', nav.scrollLeft);
         });
 }
-

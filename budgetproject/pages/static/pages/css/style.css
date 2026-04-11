@@ -103,10 +103,24 @@
   color: rgb(123, 162, 18);
 }
 
-.ozel a.active {
-  background-color: #030907;
+.ozel a.ozel-item.active {
+  background-color: #e7b82b;
   color: white;
 }
+
+
+.ozel-item {
+    padding: 8px 12px;
+    color: white;
+}
+
+/* .ozel-item.active {
+    background-color: #ffc107;
+    color: black;
+    border-radius: 10px;
+} */
+
+
 
 
 
