@@ -29,8 +29,8 @@ A web page to trace your incomes and expanses. API features are provided.
 ## 🛠 Tech Stack
 
 - Backend: Django + Django REST Framework
-- Frontend: HTML, CSS, Bootstrap
-- Database: SQLite (development)
+- Frontend: HTML, CSS, Bootstrap, JavaScript
+- Database: PostgreSQL
 - API Design: Versioned REST API (`/api/v1/`)
 
 
