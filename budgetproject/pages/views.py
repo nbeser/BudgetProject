@@ -128,5 +128,5 @@ def accounts(request, name):
 
 
 
-def add(request, name):
-    pass
+def operations(request):
+    return render(request, "pages/operations.html")

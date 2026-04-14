@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'pages/css/style.css' %}">
+{% endblock %}
+
+{% block title %}
+    Budget | {{ request.user.username }}
+{% endblock %}
+
+{% block content %} 
+
+<div class="text-center text-secondary bg-body-tertiary">
+    <div class="container py-5">
+        <h2>{{ user.display_name }}</h2>
+        <hr><br>
+        <h3>İşlemler</h3>
+    </div>
+</div>
+
+{% include "pages/partials/_accounts_nav.html" %}
+
+
+<div class="card rounded text-center overflow-hidden border-0 shadow m-5">
+    <div class="card-body bg-light">
+        <br>
+        <a href="#">Ekle</a>
+        <br>
+        <a href="#">Düzenle</a>
+        <br>
+        <a href="#">Sil</a>
+        <br>
+    </div>
+    <div class="card-footer">
+        <strong>HESAP İŞLEMLERİ</strong>
+    </div> 
+</div> 
+
+<div class="card rounded text-center overflow-hidden border-0 shadow m-5">
+    <div class="card-body bg-light">
+        <br>
+        <a href="#">Ekle</a>
+        <br>
+        <a href="#">Düzenle</a>
+        <br>
+        <a href="#">Sil</a>
+        <br>
+    </div>
+    <div class="card-footer">
+        <strong>KATEGORİ İŞLEMLERİ</strong>
+    </div> 
+</div> 
+
+<div class="card rounded text-center overflow-hidden border-0 shadow m-5">
+    <div class="card-body bg-light">
+        <br>
+        <a href="#">Transfer Gerçekleştir</a>
+        <br>
+        <a href="#">Kayıtlı Transfer Ekle</a>
+        <br>
+    </div>
+    <div class="card-footer">
+        <strong>TRANSFER İŞLEMLERİ</strong>
+    </div> 
+</div> 
+
+{% endblock content %}
+
+{% block js_files %}
+<script src="{% static 'pages/js/extra.js' %}"></script>
+{% endblock %}
