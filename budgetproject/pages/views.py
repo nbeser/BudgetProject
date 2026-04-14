@@ -125,3 +125,8 @@ def accounts(request, name):
     }
 
     return render(request, "pages/accounts.html", context)
+
+
+
+def add(request, name):
+    pass
