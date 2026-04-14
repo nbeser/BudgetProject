@@ -6,7 +6,7 @@ A Django-based finance application with a modular API architecture for managing 
 <br />
 <div align="center">
   
-![GUI Screenshot](readme_1.jpg)
+![GUI Screenshot](budgetproject/static/img/logo_take_1.png)
  
 </div>
 
