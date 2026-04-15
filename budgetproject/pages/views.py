@@ -32,7 +32,7 @@ def user_dashboard(request):
     ).aggregate(total=Sum("amount"))["total"] or 0
 
     accounts = Account.objects.filter(user=user, is_active=True)
-    total_by_account = [(i.name.capitalize(), i.balance, i.currency.upper(), i.name) for i in accounts ]
+    total_by_account = [(i.name.capitalize(), i.balance, i.currency.upper(), i.name, i.id) for i in accounts ]
     total_balance = sum(account.balance for account in accounts)
 
     recent_transactions = transactions.order_by("-transaction_date")[:5]
@@ -56,7 +56,7 @@ def get_budget(request):
     user = request.user
     budgets = Budget.objects.filter(user=user, is_active=True)
     accounts = Account.objects.filter(user=user, is_active=True)
-    total_by_account = [(i.name.capitalize(), i.balance, i.currency.upper(), i.name) for i in accounts ]
+    total_by_account = [(i.name.capitalize(), i.balance, i.currency.upper(), i.name, i.id) for i in accounts ]
 
 
     context = {
@@ -68,30 +68,13 @@ def get_budget(request):
     return render(request, "pages/budgets.html", context)
 
 
-# @login_required
-# def accounts(request, name):
-#     user = request.user
-#     accounts = Account.objects.filter(user=user, is_active=True)
-#     account = Account.objects.get(user=user, is_active=True, name=name)
-#     created = account.created
-#     total_by_account = [(i.name.capitalize(), i.balance, i.currency.upper(), i.name) for i in accounts ]
-#     context = {
-#         "hesap": account,
-#         "acilis": created,
-#         "toplam_hesap": total_by_account,
-#         "secili_hesap": [(i.name for i in accounts)],
-#     }
-
-#     return render(request, "pages/accounts.html", context)
-
-
 
 @login_required
-def accounts(request, name):
+def accounts(request, id):
     user = request.user
     accounts = Account.objects.filter(user=user, is_active=True)
-    account = Account.objects.get(user=user, is_active=True, name=name)
-    transactions = Transaction.objects.filter(user=user, account__name=name)
+    account = Account.objects.get(user=user, is_active=True, id=id)
+    transactions = Transaction.objects.filter(user=user, account__id=id)
     account_transactions = transactions.order_by("-transaction_date")
 
     summary = account.transaction_account.aggregate(
@@ -112,7 +95,7 @@ def accounts(request, name):
     income = summary["income"] or 0
     expense = summary["expense"] or 0
 
-    total_by_account = [(i.name.capitalize(), i.balance, i.currency.upper(), i.name) for i in accounts]
+    total_by_account = [(i.name.capitalize(), i.balance, i.currency.upper(), i.name, i.id) for i in accounts]
 
     context = {
         "hesap": account,

@@ -6,8 +6,20 @@
 
 
 
-{% for b in budgets %}
+{% comment %} {% for b in budgets %}
 <div class="card rounded-pill text-center overflow-hidden border-0 shadow m-5">
+    <div class="card-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 bg-primary">
+                    Düzenle
+                </div>
+                <div class="col-6 bg-warning">
+                    Sil
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="card-body bg-light">
         <strong>{{ b.category.name }}</strong>
         <br>
@@ -29,6 +41,60 @@
 
 {% empty %}
 <p>No budgets defined.</p>
-{% endfor %}
+{% endfor %} {% endcomment %}
+
+
+{% for b in budgets %}
+<div class="card rounded-pill text-center overflow-hidden border-0 shadow m-5">
+    
+    <div class="card-header p-0">
+        <div class="container-fluid">
+            <div class="row g-0">
+
+                <!-- Düzenle -->
+                <div class="col-6">
+                    <a href="{% url 'budget_edit' b.id %}"
+                       class="d-block bg-primary text-white text-center py-2 text-decoration-none">
+                        Düzenle
+                    </a>
+                </div>
+
+                <!-- Sil -->
+                <div class="col-6">
+                    <form action="#" method="post">
+                        {% csrf_token %}
+                        <button type="submit"
+                                class="w-100 bg-warning border-0 py-2"
+                                onclick="return confirm('Silmek istediğinize emin misiniz?')">
+                            Sil
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body bg-light">
+        <strong>{{ b.category.name }}</strong>
+        <br>
+        Bakiye: {{ b.amount }}
+        <br>
+        Harcanan: {{ b.spent_amount }}
+        <br>
+        Kalan: {{ b.remaining_amount }}
+        <br>
+    </div>
+
+    <div class="progress-bar-container">
+        <div class="progress-bar" data-progress="{{ b.progress_percentage|floatformat:0 }}"></div>
+        <span class="progress-text">0%</span>
+    </div>    
+
+</div>
+{% empty %}
+<p>No budgets defined.</p>
+{% endfor %} 
+
 
 </div>

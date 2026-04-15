@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block title %}
+    Hesap Ekle
+{% endblock %}
+
+
+
+
+{% block content %}
+<div class="container" style="border-radius: 12px;">
+    <div class="cta-box p-5">
+        <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button class="mt-3" type="submit">Kayıt Et</button>
+        </form>
+
+    </div>
+    
+
+</div>
+
+{% endblock %}

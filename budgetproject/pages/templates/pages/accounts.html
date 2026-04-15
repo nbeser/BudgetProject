@@ -19,6 +19,9 @@
         <h3>"{{ hesap.name }}" hesabındaki işlemler gösterilmektedir.</h3><br>
         <h3 class="text-success"><b>{{ hesap.balance }} {{ hesap.currency }}</b></h3>
     </div>
+    <div class="container mb-5">
+        <a href="{% url 'account_edit' hesap.id %}" class="p-1 text-secondary" style="text-decoration: None;">Hesabı Düzenle</a>  | <a href="{% url 'account_delete' hesap.id %}" class="p-1 text-secondary" style="text-decoration: None;">Hesabı Sil</a>
+    </div>
 </div>
 
 {% include "pages/partials/_accounts_nav.html" %}

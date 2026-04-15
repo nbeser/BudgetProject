@@ -16,8 +16,8 @@
                 <li class="nav-item"><a class="nav-link {% if request.resolver_match.url_name == 'operations' %}active{% endif %}" href="{% url 'operations' %}"title="İşlemler">İşlemler</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'user_logout' %}">Çıkış</a></li>
               {% else %}
-                <li class="nav-item"><a href="{% url 'user_login' %}">Girş Yap</a></li>
-                <li class="nav-item"><a href="{% url 'user_register' %}">Üye Ol</a></li>
+                <li class="nav-item" style="text-decoration: None;"><a href="{% url 'user_login' %}">Girş Yap</a></li>
+                <li class="nav-item" style="text-decoration: None;"><a href="{% url 'user_register' %}">Üye Ol</a></li>
               {% endif %}
             </ul>
         </div>

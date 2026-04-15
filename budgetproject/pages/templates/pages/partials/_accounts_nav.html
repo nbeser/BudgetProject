@@ -1,5 +1,5 @@
 <div class="ozel">
     {% for i in toplam_hesap %}
-    <a href="{% url "accounts_view" i.3 %}" class="ozel-item text-decoration-none {% if secili_hesap == i.3 %}active{% endif %}">{{ i.0|title }} - {{ i.1 }} {{ i.2 }}</a>
+    <a href="{% url "accounts_view" i.4 %}" class="ozel-item text-decoration-none {% if secili_hesap == i.3 %}active{% endif %}">{{ i.0|title }} - {{ i.1 }} {{ i.2 }}</a>
     {% endfor %}
 </div>

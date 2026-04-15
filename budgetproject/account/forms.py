@@ -26,8 +26,35 @@ class CreateAccount(forms.ModelForm):
             "currency": forms.TextInput(attrs={"class": "form-control"}),
             "is_active": forms.CheckboxInput(),
         }
+
+        labels = {
+            "name": "Hesap Adı",
+            "account_type": "Hesap Tipi",
+            "currency": "Birim",
+            "is_active": "Aktif mi?"
+        }
     
     def save(self, commit=True):
         opening_balance_value = self.cleaned_data.get('opening_balance')
         self.instance._opening_balance = opening_balance_value
         return super().save(commit=commit)
+
+
+
+class UpdateAccount(forms.ModelForm):
+    class Meta:
+        model = Account
+        fields = ("name", "account_type", "currency", "is_active")
+        widgets = {
+            "name": forms.TextInput(attrs={"class": "form-control"}),
+            "account_type": forms.Select(attrs={"class": "form-control"}),
+            "currency": forms.TextInput(attrs={"class": "form-control"}),
+            "is_active": forms.CheckboxInput(),
+        }
+    
+        labels = {
+            "name": "Hesap Adı",
+            "account_type": "Hesap Tipi",
+            "currency": "Birim",
+            "is_active": "Aktif mi?"
+        }

@@ -23,22 +23,32 @@
 {% include "pages/partials/_accounts_nav.html" %}
 
 
-<div class="card rounded text-center overflow-hidden border-0 shadow m-5">
+<div class="card rounded text-center overflow-hidden border-0 shadow-lg m-5 operations">
     <div class="card-body bg-light">
         <br>
-        <a href="#">Ekle</a>
-        <br>
-        <a href="#">Düzenle</a>
+        <a href="{% url 'budget_register' %}">Ekle</a>
         <br>
         <a href="#">Sil</a>
         <br>
     </div>
-    <div class="card-footer">
+    <div class="card-footer bg-success">
+        <strong>HARCAMA PLANI / BUDGETS</strong>
+    </div> 
+</div> 
+
+
+<div class="card rounded text-center overflow-hidden border-0 shadow-lg m-5 operations">
+    <div class="card-body bg-light">
+        <br>
+        <a href="{% url 'account_register' %}">Ekle</a>
+        <br>
+    </div>
+    <div class="card-footer bg-success">
         <strong>HESAP İŞLEMLERİ</strong>
     </div> 
 </div> 
 
-<div class="card rounded text-center overflow-hidden border-0 shadow m-5">
+<div class="card rounded text-center overflow-hidden border-0 shadow-lg m-5 operations">
     <div class="card-body bg-light">
         <br>
         <a href="#">Ekle</a>
@@ -48,12 +58,12 @@
         <a href="#">Sil</a>
         <br>
     </div>
-    <div class="card-footer">
+    <div class="card-footer bg-success">
         <strong>KATEGORİ İŞLEMLERİ</strong>
     </div> 
 </div> 
 
-<div class="card rounded text-center overflow-hidden border-0 shadow m-5">
+<div class="card rounded text-center overflow-hidden border-0 shadow-lg m-5 operations">
     <div class="card-body bg-light">
         <br>
         <a href="#">Transfer Gerçekleştir</a>
@@ -61,7 +71,7 @@
         <a href="#">Kayıtlı Transfer Ekle</a>
         <br>
     </div>
-    <div class="card-footer">
+    <div class="card-footer bg-success">
         <strong>TRANSFER İŞLEMLERİ</strong>
     </div> 
 </div> 

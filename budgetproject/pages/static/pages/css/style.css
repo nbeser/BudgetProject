@@ -212,3 +212,12 @@
   background-color: #030907;
   color: white;
 }
+
+
+
+
+.operations a {
+    text-decoration: none;
+    color: #299c67;
+    font-weight: bold;
+}
