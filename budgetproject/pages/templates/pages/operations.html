@@ -22,59 +22,60 @@
 
 {% include "pages/partials/_accounts_nav.html" %}
 
+<div class="accordion accordion-flush text-center overflow-hidden border-0 shadow-lg m-5 operations" id="accordionFlush">
 
-<div class="card rounded text-center overflow-hidden border-0 shadow-lg m-5 operations">
-    <div class="card-body bg-light">
-        <br>
-        <a href="{% url 'budget_register' %}">Ekle</a>
-        <br>
-        <a href="#">Sil</a>
-        <br>
+    <div class="accordion-item">
+        <h2 class="accordion-header bg-success">
+            <button class="accordion-button collapsed bg-success" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne"><strong>HARCAMA PLANI / BUDGETS</strong></button>
+        </h2>
+        <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
+            <div class="accordion-body"><a style="text-decoration: None;" href="{% url 'budget_register' %}">Plan Ekle</a></div>
+        </div>
     </div>
-    <div class="card-footer bg-success">
-        <strong>HARCAMA PLANI / BUDGETS</strong>
-    </div> 
-</div> 
 
-
-<div class="card rounded text-center overflow-hidden border-0 shadow-lg m-5 operations">
-    <div class="card-body bg-light">
-        <br>
-        <a href="{% url 'account_register' %}">Ekle</a>
-        <br>
+    <div class="accordion-item">
+        <h2 class="accordion-header bg-success">
+            <button class="accordion-button collapsed bg-success" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo"><strong>HESAP İŞLEMLERİ</strong></button>
+        </h2>
+        <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
+            <div class="accordion-body"><a style="text-decoration: None;" href="{% url 'account_register' %}">Hesap Ekle</a></div>
+        </div>
     </div>
-    <div class="card-footer bg-success">
-        <strong>HESAP İŞLEMLERİ</strong>
-    </div> 
-</div> 
 
-<div class="card rounded text-center overflow-hidden border-0 shadow-lg m-5 operations">
-    <div class="card-body bg-light">
-        <br>
-        <a href="#">Ekle</a>
-        <br>
-        <a href="#">Düzenle</a>
-        <br>
-        <a href="#">Sil</a>
-        <br>
-    </div>
-    <div class="card-footer bg-success">
-        <strong>KATEGORİ İŞLEMLERİ</strong>
-    </div> 
-</div> 
 
-<div class="card rounded text-center overflow-hidden border-0 shadow-lg m-5 operations">
-    <div class="card-body bg-light">
-        <br>
-        <a href="#">Transfer Gerçekleştir</a>
-        <br>
-        <a href="#">Kayıtlı Transfer Ekle</a>
-        <br>
+    <div class="accordion-item">
+        <h2 class="accordion-header bg-success">
+            <button class="accordion-button collapsed bg-success" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree"><strong>KATEGORİ İŞLEMLERİ</strong></button>
+        </h2>
+        <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
+            <div class="accordion-body"><a style="text-decoration: None;" href="#">Ekle</a></div>
+        </div>
+        <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
+            <div class="accordion-body"><a style="text-decoration: None;" href="#">Düzenle</a></div>
+        </div>
+        <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
+            <div class="accordion-body"><a style="text-decoration: None;" href="#">Sil</a></div>
+        </div>
     </div>
-    <div class="card-footer bg-success">
-        <strong>TRANSFER İŞLEMLERİ</strong>
-    </div> 
-</div> 
+
+
+
+    <div class="accordion-item">
+        <h2 class="accordion-header bg-success">
+            <button class="accordion-button collapsed bg-success" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour"><strong>TRANSFER İŞLEMLERİ</strong></button>
+        </h2>
+        <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
+            <div class="accordion-body"><a style="text-decoration: None;" href="#">Transfer Gerçekleştir</a></div>
+        </div>
+        <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
+            <div class="accordion-body"><a style="text-decoration: None;" href="#">Transfer Planı Ekle</a></div>
+        </div>
+    </div>
+
+</div>
+
+
+
 
 {% endblock content %}
 

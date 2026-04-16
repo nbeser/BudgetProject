@@ -27,3 +27,13 @@ def budget_edit(request, id):
     else:
         form = EditBudgets(user=request.user)
     return render(request, "budgets/edit_budgets.html", {"form": form})
+
+
+@login_required
+def budget_delete(request, id):
+    budget = get_object_or_404(Budget, id=id)
+    if request.method == "POST":
+        budget.delete()
+        return redirect("get_budget")
+    return render(request, "budget/delete_budget.html", {"budget": budget})
+    

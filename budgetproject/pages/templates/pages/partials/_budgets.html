@@ -61,7 +61,7 @@
 
                 <!-- Sil -->
                 <div class="col-6">
-                    <form action="#" method="post">
+                    <form action="{% url 'budget_delete' b.id %}" method="post">
                         {% csrf_token %}
                         <button type="submit"
                                 class="w-100 bg-warning border-0 py-2"
