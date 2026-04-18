@@ -62,3 +62,22 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('ozelScroll', nav.scrollLeft);
         });
 }
+
+
+
+document.querySelectorAll(".open-modal").forEach(btn => {
+    btn.addEventListener("click", function(e) {
+        e.preventDefault();
+
+        let key = this.dataset.key;
+
+        fetch(`/operations/${key}/`)
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById("modal-content").innerHTML = html;
+
+                let modal = new bootstrap.Modal(document.getElementById('operationsModal'));
+                modal.show();
+            });
+    });
+});

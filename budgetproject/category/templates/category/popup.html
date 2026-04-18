@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'pages/css/style.css' %}">
+{% endblock %}
+
+{% block title %}
+    Popup | {{ request.user.username }}
+{% endblock %}
+
+
+
+
+
+{% block content %} 
+<div class="popup">
+  <input type="checkbox" id="toggle">
+  <label for="toggle">Click me</label>
+
+  <div class="popup-content">
+    <a href="#">Option 1</a>
+    <a href="#">Option 2</a>
+    <a href="#">Option 3</a>
+  </div>
+</div>
+{% endblock %}

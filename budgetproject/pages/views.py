@@ -6,8 +6,8 @@ from django.db.models import Sum, Case, When, F, DecimalField
 
 from transaction.models import Transaction
 from account.models import Account
-
 from budgets.models import Budget
+from category.models import Category
 
 
 def pages_index(request):
@@ -111,5 +111,27 @@ def accounts(request, id):
 
 
 
+@login_required
 def operations(request):
     return render(request, "pages/operations.html")
+
+
+@login_required
+def operations_popup(request, key):
+    user = request.user
+    budgets = Budget.objects.filter(user=user, is_active=True)
+    accounts = Account.objects.filter(user=user, is_active=True)
+    transactions = Transaction.objects.filter(user=user)
+    categories = Category.objects.filter(user=user, type=Category.CategoryType.EXPENSE)
+
+    data = {
+        "budgets": budgets,
+        "accounts": accounts,
+        "transactions": transactions,
+        "categories": categories,
+    }
+
+    return render(request, "pages/operations_popup.html", {
+        "items": data.get(key, []),
+        "key": key,
+    })

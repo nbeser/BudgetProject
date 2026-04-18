@@ -7,4 +7,5 @@ urlpatterns = [
     path('budgets/', views.get_budget, name='get_budget'),
     path('account/<int:id>/', views.accounts, name='accounts_view'),
     path('operations/', views.operations, name='operations'),
+    path('operations/<str:key>/', views.operations_popup, name='operations_popup'),
 ]
