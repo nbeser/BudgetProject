@@ -118,11 +118,10 @@ def operations(request):
 
 @login_required
 def operations_popup(request, key):
-    user = request.user
-    budgets = Budget.objects.filter(user=user, is_active=True)
-    accounts = Account.objects.filter(user=user, is_active=True)
-    transactions = Transaction.objects.filter(user=user)
-    categories = Category.objects.filter(user=user, type=Category.CategoryType.EXPENSE)
+    budgets = Budget.objects.filter(user=request.user)
+    accounts = Account.objects.filter(user=request.user)
+    transactions = Transaction.objects.filter(user=request.user)
+    categories = Category.objects.filter(user=request.user, is_system=False)
 
     data = {
         "budgets": budgets,

@@ -35,5 +35,5 @@ def budget_delete(request, id):
     if request.method == "POST":
         budget.delete()
         return redirect("get_budget")
-    return render(request, "budget/delete_budget.html", {"budget": budget})
+    return render(request, "budgets/delete_budgets.html", {"budget": budget})
     

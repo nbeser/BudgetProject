@@ -31,15 +31,27 @@
         <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
             <div class="accordion-body"><a style="text-decoration: None;" href="{% url 'budget_register' %}">Plan Ekle</a></div>
         </div>
+
+        <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
+            <div class="accordion-body"><a href="#" class="open-modal" data-key="budgets">Düzenle / Sil</a></div>
+        </div>
+
     </div>
 
     <div class="accordion-item">
         <h2 class="accordion-header bg-success">
             <button class="accordion-button collapsed bg-success" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo"><strong>HESAP İŞLEMLERİ</strong></button>
         </h2>
+
         <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
             <div class="accordion-body"><a style="text-decoration: None;" href="{% url 'account_register' %}">Hesap Ekle</a></div>
         </div>
+
+        <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
+            <div class="accordion-body"><a href="#" class="open-modal" data-key="accounts">Düzenle / Sil</a></div>
+        </div>
+
+        
     </div>
 
 
@@ -48,14 +60,12 @@
             <button class="accordion-button collapsed bg-success" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree"><strong>KATEGORİ İŞLEMLERİ</strong></button>
         </h2>
         <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
-            <div class="accordion-body"><a style="text-decoration: None;" href="#">Ekle</a></div>
+            <div class="accordion-body"><a style="text-decoration: None;" href="{% url 'category_register' %}">Ekle</a></div>
         </div>
         <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
-            <div class="accordion-body"><a href="#" class="open-modal" data-key="category">Düzenle</a></div>
+            <div class="accordion-body"><a href="#" class="open-modal" data-key="categories">Düzenle / Sil</a></div>
         </div>
-        <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
-            <div class="accordion-body"><a style="text-decoration: None;" href="#">Sil</a></div>
-        </div>
+       
     </div>
     
 
@@ -88,11 +98,10 @@
 
 
 
-<!-- Trigger buttons -->
-<a href="#" class="open-modal" data-key="budgets">Budgets</a>
-<a href="#" class="open-modal" data-key="accounts">Accounts</a>
 
-<!-- Modal -->
+
+
+
 <div class="modal fade" id="operationsModal" tabindex="-1">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">

@@ -12,12 +12,22 @@
 
 <ul class="list-group">
     {% for item in items %}
-        <li class="list-group-item">
-            {% if item.name %}
-            - <strong>{{ item.name }}</strong> <br>
+        <li class="list-group-item border mb-1">
+            {% if key == 'accounts' %}
+            <strong>{{ item.name }}</strong> <br>
+            <a class="text-dark" href="{% url 'account_edit' item.id %}" style="text-decoration: None;"><strong>Düzenle</strong></a> |  
+            <a class="text-dark" href="{% url 'account_delete' item.id %}" style="text-decoration: None;"><strong>Sil</strong></a> 
+
             {% elif key == 'budgets' %}
             {{ item.category }} - {{ item.amount }} <br>
-            Bitiş Tarihi: {{ item.end_date }}          
+            Bitiş Tarihi: {{ item.end_date }} <br>
+            <a class="text-dark" href="{% url 'budget_edit' item.id %}" style="text-decoration: None;"><strong>Düzenle</strong></a> |  
+            <a class="text-dark" href="{% url 'budget_delete' item.id %}" style="text-decoration: None;"><strong>Sil</strong></a>
+
+            {% elif key == 'categories' %}
+            <strong>{{ item.name }}</strong> - {{ item.type }} <br> <hr>
+            <a class="text-dark" href="{% url 'category_edit' item.id %}" style="text-decoration: None;">Düzenle</a> |  
+            <a class="text-dark" href="{% url 'category_delete' item.id %}" style="text-decoration: None;">Sil</a> 
             {% endif %}
         </li>
     {% empty %}
