@@ -51,9 +51,7 @@ A web page to trace your incomes and expanses. API features are provided.
 - Clean responsive UI (Bootstrap-based)
 
 ### 🚧 In Progress
-- Add / Delete / Update transactions (UI integration ongoing)
-- Account management (create/edit/delete via UI)
-- Interactive charts (income vs expense visualization)
+- Recurring Transactions are in progress (only remaining CRUD). 
 
 ### 🔜 Planned
 - Category-based budgeting
