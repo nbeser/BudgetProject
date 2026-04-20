@@ -20,10 +20,22 @@ def category_register(request):
 
 
 @login_required
-def category_edit(request):
-    pass
+def category_edit(request, id):
+    category = get_object_or_404(Category, id=id)
+    if request.method == "POST":
+        form = CreateCategoryForm(request.POST, request.FILES, instance=category)
+        form.save()
+        return redirect("operations")
+    else:
+        form = CreateCategoryForm(user=request.user, instance=category)
+    return render(request, "category/edit_category.html", {"form": form})
+
 
 
 @login_required
-def category_delete(request):
-    pass
+def category_delete(request, id):
+    category = get_object_or_404(Category, id=id)
+    if request.method == "POST":
+        category.delete()
+        return redirect("operations")
+    return render(request, "category/delete_category.html", {"category": category})
