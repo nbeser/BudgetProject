@@ -25,7 +25,7 @@ def budget_edit(request, id):
         form.save()
         return redirect("get_budget")
     else:
-        form = EditBudgets(user=request.user)
+        form = EditBudgets(user=request.user, instance=budget)
     return render(request, "budgets/edit_budgets.html", {"form": form})
 
 

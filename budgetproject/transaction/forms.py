@@ -10,7 +10,7 @@ User = get_user_model()
 
 
 
-class CreateTransactionForm(forms.ModelForm):
+class TransactionForm(forms.ModelForm):
     class Meta:
         model = Transaction
         fields = ("account", "category", "amount", "description")

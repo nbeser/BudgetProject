@@ -28,6 +28,12 @@
             <strong>{{ item.name }}</strong> - {{ item.type }} <br> <hr>
             <a class="text-dark" href="{% url 'category_edit' item.id %}" style="text-decoration: None;">Düzenle</a> |  
             <a class="text-dark" href="{% url 'category_delete' item.id %}" style="text-decoration: None;">Sil</a> 
+
+            {% elif key == 'transactions' %}
+            <strong>{{ item.account.name }}</strong> - {{ item.category.name }} - {{ item.amount }} {{ item.currency }} <br> <hr>
+            <a class="text-dark" href="{% url 'transaction_edit' item.id %}" style="text-decoration: None;">Düzenle</a> |  
+            <a class="text-dark" href="{% url 'transaction_delete' item.id %}" style="text-decoration: None;">Sil</a> 
+
             {% endif %}
         </li>
     {% empty %}

@@ -120,7 +120,7 @@ def operations(request):
 def operations_popup(request, key):
     budgets = Budget.objects.filter(user=request.user)
     accounts = Account.objects.filter(user=request.user)
-    transactions = Transaction.objects.filter(user=request.user)
+    transactions = Transaction.objects.filter(user=request.user, category__is_system=False).order_by("-created")
     categories = Category.objects.filter(user=request.user, is_system=False)
 
     data = {
