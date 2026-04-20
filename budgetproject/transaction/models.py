@@ -21,15 +21,23 @@ class Transaction(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def clean(self):
-        if self.account.user != self.user:
+
+        if not self.user_id or not self.account_id or not self.category_id:
+            return
+
+        if self.account.user_id != self.user_id:
             raise ValidationError("Account must belong to the same user.")
 
-        if self.category.user != self.user:
+        if self.category.user_id != self.user_id:
             raise ValidationError("Category must belong to the same user.")
 
         if self.category.is_parent:
             raise ValidationError("Cannot assign transaction to parent category.")
     
+
+
+
+
     def save(self, *args, **kwargs):
         self.full_clean()
         super().save(*args, **kwargs)
