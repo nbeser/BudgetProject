@@ -129,8 +129,8 @@ The project includes a versioned REST API.
 
 
 ## ⚙️ Installation
-
-git clone https://github.com/yourusername/coder-finance.git
+NOTE: Not ready yet.
+git clone https://github.com/nbeser/BudgetProject.git
 cd coder-finance
 
 python -m venv venv
