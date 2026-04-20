@@ -54,9 +54,8 @@ A web page to trace your incomes and expanses. API features are provided.
 - Recurring Transactions are in progress (only remaining CRUD). 
 
 ### 🔜 Planned
-- Category-based budgeting
-- Monthly financial reports
-- Advanced analytics via API
+- Token management for API,
+- Celery deployment for recurring transactions.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
