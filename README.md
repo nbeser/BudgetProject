@@ -51,14 +51,11 @@ A web page to trace your incomes and expanses. API features are provided.
 - Clean responsive UI (Bootstrap-based)
 
 ### 🚧 In Progress
-- Add / Delete / Update transactions (UI integration ongoing)
-- Account management (create/edit/delete via UI)
-- Interactive charts (income vs expense visualization)
+- Recurring Transactions are in progress (only remaining CRUD). 
 
 ### 🔜 Planned
-- Category-based budgeting
-- Monthly financial reports
-- Advanced analytics via API
+- Token management for API,
+- Celery deployment for recurring transactions.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -132,8 +129,8 @@ The project includes a versioned REST API.
 
 
 ## ⚙️ Installation
-
-git clone https://github.com/yourusername/coder-finance.git
+NOTE: Not ready yet.
+git clone https://github.com/nbeser/BudgetProject.git
 cd coder-finance
 
 python -m venv venv
