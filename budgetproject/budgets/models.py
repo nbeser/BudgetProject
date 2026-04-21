@@ -8,6 +8,7 @@ from django.core.exceptions import ValidationError
 
 from transaction.models import Transaction
 from django.db.models import Sum
+from django.utils import timezone
 
 
 class Budget(models.Model):
@@ -20,8 +21,8 @@ class Budget(models.Model):
 
     amount = models.DecimalField(max_digits=12, decimal_places=2)
 
-    start_date = models.DateField()
-    end_date = models.DateField()
+    start_date = models.DateTimeField(default=timezone.now)
+    end_date = models.DateTimeField()
 
     is_active = models.BooleanField(default=True)
 
@@ -40,10 +41,15 @@ class Budget(models.Model):
 
     @property
     def spent_amount(self):
+        categories = [self.category]
+
+        children = self.category.children.all()
+        if children.exists():
+            categories += list(children)
 
         transactions = Transaction.objects.filter(
             user=self.user,
-            category=self.category,
+            category__in=categories,
             transaction_date__gte=self.start_date,
             transaction_date__lte=self.end_date,
         )
@@ -51,9 +57,57 @@ class Budget(models.Model):
         if self.account:
             transactions = transactions.filter(account=self.account)
 
+       
+        '''
+        print("------ DEBUG ------")
+        print("Budget start:", self.start_date)
+        print("Budget end:", self.end_date)
+
+        all_user_tx = Transaction.objects.filter(user=self.user)
+        print("ALL user transactions:", all_user_tx.count())
+        print("ALL dates:", list(all_user_tx.values_list("transaction_date", flat=True)))
+
+        filtered = Transaction.objects.filter(
+            user=self.user,
+            category__in=categories,
+        )
+        print("After category filter:", filtered.count())
+
+        date_filtered = filtered.filter(
+            transaction_date__gte=self.start_date,
+            transaction_date__lte=self.end_date,
+        )
+        print("After date filter:", date_filtered.count())
+
+        if self.account:
+            acc_filtered = date_filtered.filter(account=self.account)
+            print("After account filter:", acc_filtered.count())
+
+        print("Budget category:", self.category.id)
+        print("Categories used:", [c.id for c in categories])
+        print("Transaction categories:", list(all_user_tx.values_list("category_id", flat=True)))
+
+        print("-------------------")
+        '''
+
+        '''
+        print("------ FINAL CHECK ------")
+        print("Budget start (UTC):", self.start_date)
+        print("Budget start (LOCAL):", timezone.localtime(self.start_date))
+
+        for t in Transaction.objects.filter(user=self.user)[:5]:
+            print("TX UTC:", t.transaction_date, "| LOCAL:", timezone.localtime(t.transaction_date))
+
+        print("-------------------------")
+        '''
+
+
+
+
         total = transactions.aggregate(total=Sum("amount"))["total"]
 
         return total or 0
+
 
     @property
     def remaining_amount(self):

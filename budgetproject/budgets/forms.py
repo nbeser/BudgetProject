@@ -4,17 +4,19 @@ from .models import Budget
 
 from account.models import Account
 from category.models import Category
-
+from django.utils import timezone
 
 User = get_user_model()
 
 
 class CreateBudgets(forms.ModelForm):
-    start_date = forms.DateField(
-        widget=forms.DateInput(attrs={'type': 'date'})
+    start_date = forms.DateTimeField(
+        widget=forms.DateTimeInput(
+            attrs={'type': 'datetime-local', "class": "form-control"})
     )
-    end_date = forms.DateField(
-        widget=forms.DateInput(attrs={'type': 'date'})
+    end_date = forms.DateTimeField(
+        widget=forms.DateTimeInput(
+            attrs={'type': 'datetime-local', "class": "form-control"})
     )
     amount = forms.DecimalField(
         max_digits=12,
@@ -46,14 +48,28 @@ class CreateBudgets(forms.ModelForm):
             self.instance.user = self.user
 
         return cleaned_data
+    
+    def clean_start_date(self):
+        dt = self.cleaned_data["start_date"]
+        if timezone.is_naive(dt):
+            return timezone.make_aware(dt, timezone.get_current_timezone())
+        return dt
+
+    def clean_end_date(self):
+        dt = self.cleaned_data["end_date"]
+        if timezone.is_naive(dt):
+            return timezone.make_aware(dt, timezone.get_current_timezone())
+        return dt
 
 
 class EditBudgets(forms.ModelForm):
-    start_date = forms.DateField(
-        widget=forms.DateInput(attrs={'type': 'date'})
+    start_date = forms.DateTimeField(
+        widget=forms.DateTimeInput(
+            attrs={'type': 'datetime-local', "class": "form-control"})
     )
-    end_date = forms.DateField(
-        widget=forms.DateInput(attrs={'type': 'date'})
+    end_date = forms.DateTimeField(
+        widget=forms.DateTimeInput(
+            attrs={'type': 'datetime-local', "class": "form-control"})
     )
     amount = forms.DecimalField(
         max_digits=12,
@@ -76,3 +92,15 @@ class EditBudgets(forms.ModelForm):
         if self.user:
             self.fields["category"].queryset = Category.objects.filter(user=self.user, type=Category.CategoryType.EXPENSE)
             self.fields["account"].queryset = Account.objects.filter(user=self.user)
+    
+    def clean_start_date(self):
+        dt = self.cleaned_data["start_date"]
+        if timezone.is_naive(dt):
+            return timezone.make_aware(dt, timezone.get_current_timezone())
+        return dt
+
+    def clean_end_date(self):
+        dt = self.cleaned_data["end_date"]
+        if timezone.is_naive(dt):
+            return timezone.make_aware(dt, timezone.get_current_timezone())
+        return dt

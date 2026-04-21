@@ -39,5 +39,5 @@ class Category(models.Model):
 
     def __str__(self):
         if self.parent:
-            return f"{self.parent.name} > {self.name} ({self.user.username})"
-        return f"{self.name} ({self.user.username})"
+            return f"{self.parent.name} > {self.name} ({self.user.name})"
+        return f"{self.name} ({self.user.name})"
