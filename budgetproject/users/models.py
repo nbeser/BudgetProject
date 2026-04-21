@@ -33,6 +33,8 @@ class User(AbstractUser):
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=150, unique=True, blank=True, null=True)
 
+    display_name = models.CharField(max_length=150, blank=True)
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
@@ -52,8 +54,8 @@ class User(AbstractUser):
         super().save(*args, **kwargs)
 
     @property
-    def display_name(self):
-        return self.first_name or self.username or self.email
+    def name(self):
+        return self.display_name or self.first_name or self.username or self.email
     
     def __str__(self):
         return self.username

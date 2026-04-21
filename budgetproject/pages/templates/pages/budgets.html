@@ -7,14 +7,14 @@
 {% endblock %}
 
 {% block title %}
-    Budget | {{ request.user.username }}
+    Budget | {{ request.user.name }}
 {% endblock %}
 
 {% block content %} 
 
 <div class="text-center text-secondary bg-body-tertiary">
     <div class="container py-5">
-        <h2>{{ user.display_name }}</h2>
+        <h2>{{ user.name }}</h2>
         <hr><br>
         <h3>Oluşturduğun Harcama Planların</h3>
     </div>

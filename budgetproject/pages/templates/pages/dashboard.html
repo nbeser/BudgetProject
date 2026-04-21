@@ -7,14 +7,16 @@
 {% endblock %}
 
 {% block title %}
-    Dashboard | {{ request.user.username }}
+    Dashboard | {{ request.user.name }}
 {% endblock %}
 
 {% block content %} 
 
 <div class="text-center text-secondary bg-body-tertiary">
     <div class="container py-5">
-        <h2>Hoşgeldin {{ user.display_name }}</h2>
+        <h2>Hoşgeldin {{ user.name }}
+            <a class="text-info" href="{% url 'profile_edit' %}" style="text-decoration: None;">[Değiştir]</a>
+        </h2>
         <hr><br>
         <h3>Hesapların Toplamı: {{ toplam }} TRY</h3>
     </div>

@@ -40,19 +40,16 @@ class UserSignupForm(UserCreationForm):
     )
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ("email", "password1", "password2")
-        # fields = ("email", "password1", "password2", "first_name", "last_name")
+        fields = ("email", "display_name", "password1", "password2")
         widgets = {
             "email": forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'E-mail'}),
-            # "first_name": forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'İsim'}),
-            # "last_name": forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Soy İsim'}),
+            "display_name": forms.TextInput(attrs={"class": "form-control"}),
         }
         labels = {
             "email": "E-Mail",
+            "display_name": "Seni Nasıl Çağıralım?",
             "password1": "Parola",
             "password2": "Parola Tekrar",
-            # "first_name": "İsim",
-            # "last_name": "Soy İsim"
         }
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -60,3 +57,14 @@ class UserSignupForm(UserCreationForm):
         self.fields['password1'].label = "Parola"
         self.fields['password2'].label = "Parola Tekrar"
 
+
+class DisplayNameForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ("display_name",)
+        widgets = {
+            "display_name": forms.TextInput(attrs={"class": "form-control"}),
+        }
+        labels = {
+            "display_name": "İsmi Değiştir!",
+        }
