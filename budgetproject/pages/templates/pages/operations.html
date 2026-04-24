@@ -46,7 +46,11 @@
             <button class="accordion-button collapsed bg-success" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive"><strong>KAYITLI TRANSFER İŞLEMLERİ</strong></button>
         </h2>
         <div id="flush-collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
-            <div class="accordion-body"><a style="text-decoration: None;" href="#">Transfer Planla</a></div>
+            <div class="accordion-body"><a style="text-decoration: None;" href="{% url 'recurring_register' %}">Transfer Planla</a></div>
+        </div>
+
+        <div id="flush-collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
+            <div class="accordion-body"><a href="#" class="open-modal" data-key="recurrings">Düzenle / Sil</a></div>
         </div>
     </div>
 

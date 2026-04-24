@@ -49,17 +49,17 @@ class CreateBudgets(forms.ModelForm):
 
         return cleaned_data
     
-    def clean_start_date(self):
-        dt = self.cleaned_data["start_date"]
-        if timezone.is_naive(dt):
-            return timezone.make_aware(dt, timezone.get_current_timezone())
-        return dt
+    # def clean_start_date(self):
+    #     dt = self.cleaned_data["start_date"]
+    #     if timezone.is_naive(dt):
+    #         return timezone.make_aware(dt, timezone.get_current_timezone())
+    #     return dt
 
-    def clean_end_date(self):
-        dt = self.cleaned_data["end_date"]
-        if timezone.is_naive(dt):
-            return timezone.make_aware(dt, timezone.get_current_timezone())
-        return dt
+    # def clean_end_date(self):
+    #     dt = self.cleaned_data["end_date"]
+    #     if timezone.is_naive(dt):
+    #         return timezone.make_aware(dt, timezone.get_current_timezone())
+    #     return dt
 
 
 class EditBudgets(forms.ModelForm):
@@ -93,14 +93,14 @@ class EditBudgets(forms.ModelForm):
             self.fields["category"].queryset = Category.objects.filter(user=self.user, type=Category.CategoryType.EXPENSE)
             self.fields["account"].queryset = Account.objects.filter(user=self.user)
     
-    def clean_start_date(self):
-        dt = self.cleaned_data["start_date"]
-        if timezone.is_naive(dt):
-            return timezone.make_aware(dt, timezone.get_current_timezone())
-        return dt
+    # def clean_start_date(self):
+    #     dt = self.cleaned_data["start_date"]
+    #     if timezone.is_naive(dt):
+    #         return timezone.make_aware(dt, timezone.get_current_timezone())
+    #     return dt
 
-    def clean_end_date(self):
-        dt = self.cleaned_data["end_date"]
-        if timezone.is_naive(dt):
-            return timezone.make_aware(dt, timezone.get_current_timezone())
-        return dt
+    # def clean_end_date(self):
+    #     dt = self.cleaned_data["end_date"]
+    #     if timezone.is_naive(dt):
+    #         return timezone.make_aware(dt, timezone.get_current_timezone())
+    #     return dt

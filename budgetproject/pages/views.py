@@ -8,6 +8,7 @@ from transaction.models import Transaction
 from account.models import Account
 from budgets.models import Budget
 from category.models import Category
+from recurring.models import RecurringTransaction
 
 
 def pages_index(request):
@@ -122,12 +123,14 @@ def operations_popup(request, key):
     accounts = Account.objects.filter(user=request.user)
     transactions = Transaction.objects.filter(user=request.user, category__is_system=False).order_by("-created")
     categories = Category.objects.filter(user=request.user, is_system=False)
+    recurrings = RecurringTransaction.objects.filter(user=request.user)
 
     data = {
         "budgets": budgets,
         "accounts": accounts,
         "transactions": transactions,
         "categories": categories,
+        "recurrings": recurrings,
     }
 
     return render(request, "pages/operations_popup.html", {

@@ -29,4 +29,5 @@ urlpatterns = [
     path("budgets/", include("budgets.urls")),
     path("category/", include("category.urls")),
     path("transaction/", include("transaction.urls")),
+    path("recurring/", include("recurring.urls")),
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

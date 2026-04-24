@@ -36,6 +36,10 @@ class RecurringTransaction(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def clean(self):
+
+        if not self.user_id or not self.account_id or not self.category_id:
+            return
+
         if self.account.user_id != self.user_id:
             raise ValidationError("Account must belong to the same user.")
 

@@ -1,10 +1,12 @@
 {% load static %}
 
 {% block css_files %}
-<link rel="stylesheet" href="{% static 'static/pages/css/style.css' %}">
+<link rel="stylesheet" href="{% static '/pages/css/style.css' %}">
 {% endblock %}
 
-{{ request.user.name }}
+<div class="text-center">
+    <strong>{{ request.user.name }}</strong>
+</div>
 
 
 
@@ -12,7 +14,7 @@
 
 <ul class="list-group">
     {% for item in items %}
-        <li class="list-group-item border mb-1">
+        <li class="list-group-item border border-warning mb-1">
             {% if key == 'accounts' %}
             <strong>{{ item.name }}</strong> <br>
             <a class="text-dark" href="{% url 'account_edit' item.id %}" style="text-decoration: None;"><strong>Düzenle</strong></a> |  
@@ -33,7 +35,18 @@
             <strong>{{ item.account.name }}</strong> - {{ item.category.name }} - {{ item.amount }} {{ item.currency }} <br> <hr>
             <a class="text-dark" href="{% url 'transaction_edit' item.id %}" style="text-decoration: None;">Düzenle</a> |  
             <a class="text-dark" href="{% url 'transaction_delete' item.id %}" style="text-decoration: None;">Sil</a> 
+            
+            {% elif key == 'recurrings' %}
+            <strong>{{ item.account.name }}</strong> - {{ item.category.name }} - {{ item.amount }} {{ item.currency }} <br> <hr>
+            Gerçekleşme sıklığı - {% if item.frequency == "monthly" %} Aylık {% elif item.frequency == "yearly" %} Yıllık {% elif item.frequency == "weekly" %} Haftalık {% elif item.frequency == "daily" %} Günlük {% endif %} <br> 
+            <Strong>Açıklama:</Strong> {{ item.description }} <br>
+            <Strong>Başlangıç:</Strong> {{ item.start_date }} | Bitiş: {{ item.last_run }} <br> <hr>
+            <Strong>Oluşturma:</Strong> {{ item.created }} {% if item.created|date:"d/m/Y H:i" != item.updated|date:"d/m/Y H:i"  %} | <strong>Güncelleme:</strong> {{ item.updated }} {% endif %}<hr>
 
+            <div style="display:Flex; justify-content: space-between; gap:10px;">
+                <a class="text-dark fw-bold bg-success" href="{% url 'recurring_edit' item.id %}" style="text-decoration: None; flex:1; text-align:center;">Düzenle</a>   
+                <a class="text-dark fw-bold bg-danger" href="{% url 'recurring_delete' item.id %}" style="text-decoration: None; flex:1; text-align:center;">Sil</a> 
+            </div>
             {% endif %}
         </li>
     {% empty %}
