@@ -7,7 +7,8 @@
 <!-- TOP NAVBAR (desktop) -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-secondary sticky-top custom-top-nav" style="opacity: 0.8;">
     <div class="container">
-        <a class="navbar-brand fw-bold nav-link {% if request.resolver_match.url_name == 'pages_index' %}active{% endif %}" href="{% url 'pages_index' %}" style="font-family:Arial, Helvetica, sans-serif">BUDGET PROJECT</a>
+        
+        <a class="navbar-brand fw-bold nav-link {% if request.resolver_match.url_name == 'pages_index' %}active{% endif %}" href="{% url 'pages_index' %}" style="font-family:Arial, Helvetica, sans-serif"><img class="rounded" src="{% static "/img/logo_take_1.png" %}" height="50" alt="MDB Logo" loading="lazy"/></a>
         <div class="collapse navbar-collapse show">
             <ul class="navbar-nav ms-auto">
               {% if user.is_authenticated %}
@@ -31,7 +32,7 @@
 <!-- BOTTOM NAVBAR (mobile) -->
 {% if user.is_authenticated %}
   <nav class="custom-bottom-nav bg-secondary">
-    <a href="{% url 'pages_index' %}" class="nav-link {% if request.resolver_match.url_name == 'pages_index' %}active{% endif %}">B</a>
+    <a href="{% url 'pages_index' %}" class="nav-link {% if request.resolver_match.url_name == 'pages_index' %}active{% endif %}"><img class="rounded" src="{% static "/img/logo_take_1.png" %}" height="40" alt="MDB Logo" loading="lazy"/></a>
     <a class="nav-link {% if request.resolver_match.url_name == 'user_dashboard' %}active{% endif %}" href="{% url 'user_dashboard' %}" title="Kullanıcı paneli.">Dashboard</a>
     <a class="nav-link {% if request.resolver_match.url_name == 'get_budget' %}active{% endif %}" href="{% url 'get_budget' %}"title="Oluşturduğun harcama planların.">Budgets</a>
     <a class="nav-link {% if request.resolver_match.url_name == 'operations' %}active{% endif %}" href="{% url 'operations' %}"title="İşlemler">İşlemler</a></li>
