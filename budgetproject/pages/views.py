@@ -12,6 +12,7 @@ from recurring.models import RecurringTransaction
 
 
 def pages_index(request):
+    
     return render(request, "pages/index.html")
 
 

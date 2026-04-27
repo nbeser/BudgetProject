@@ -9,9 +9,74 @@
 
 {% block content %} 
 
-<h1>Lorem ipsum dolor sit amet.</h1>
-<h1>Lorem ipsum dolor sit amet.</h1>
-<h5>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit harum nesciunt ipsa. Facere odit nisi deserunt sit officiis cum soluta tempore quia! Atque aspernatur sequi dolore, mollitia deserunt voluptatum neque ipsam ad voluptas repellat eaque officiis ea minus suscipit harum quia labore aperiam dolor non.</h5>
-<h1>Lorem ipsum dolor sit amet.</h1>
-<h5>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit harum nesciunt ipsa. Facere odit nisi deserunt sit officiis cum soluta tempore quia! Atque aspernatur sequi dolore, mollitia deserunt voluptatum neque ipsam ad voluptas repellat eaque officiis ea minus suscipit harum quia labore aperiam dolor non.</h5>
-{% endblock content %}
+
+
+<!-- HERO -->
+<section class="hero text-center py-5">
+    <h1>Herkes için kolay finans programı</h1>
+    <p class="mb-5">Paranı pahallı uygulamalar kullanmadan takip et</p>
+    {% if user.is_authenticated %}
+    Kullanıcı: <p class="text-secondary"><a href="{% url 'user_dashboard' %}"><strong>{{ user.name }}</strong></a></p> 
+    {% else %}
+    <a href="{% url 'user_register' %}" class="btn btn-primary">Kullanmaya Başla</a>
+    {% endif %}
+</section>
+
+
+
+<!-- MARKET -->
+<section class="market container py-4">
+    <h3>Market</h3>
+    <div class="row text-center">
+
+        <div class="col">
+            <h5>USD/TRY</h5>
+            <p>{{ usd_try }}</p>
+        </div>
+
+        <div class="col">
+            <h5>EUR/TRY</h5>
+            <p>{{ eur_try }}</p>
+        </div>
+
+        <div class="col">
+            <h5>Altın (gram)</h5>
+            <p>{{ gold_try }}</p>
+        </div>
+
+    </div>
+</section>
+
+
+
+<section class="container py-5">
+    <h2>Neden Önemli</h2>
+    <p>
+        Döviz kurlarındaki dalgalanmalar ve enflasyon, günlük harcamalarınızı doğrudan etkiler. <br>
+        Sayıları bilmek yeterli değil; kendi paranızı takip etmeniz gerekiyor.
+    </p>
+</section>
+
+
+
+
+<!-- FEATURES -->
+<section class="container py-5">
+    <h2>Features</h2>
+    <ul>
+        <li>Track income & expenses</li>
+        <li>Recurring transactions</li>
+        <li>Multi-currency support</li>
+        <li>Clean and simple interface</li>
+    </ul>
+</section>
+
+
+{% if not user.is_authenticated %}
+<section class="text-center py-5">
+    <h3>Start tracking your money today</h3>
+    <a href="{% url 'user_register' %}" class="btn btn-success">Hesap Oluştur</a>
+</section>
+{% endif %}
+
+{% endblock %}
