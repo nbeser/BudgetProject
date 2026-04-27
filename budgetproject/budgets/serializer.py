@@ -3,7 +3,8 @@ from .models import Budget
 
 
 class BudgetSerializer(serializers.ModelSerializer):
-    user = serializers.SlugRelatedField(read_only=True, slug_field="username")
+    # user = serializers.SlugRelatedField(read_only=True, slug_field="username")
+    display_name = serializers.CharField(source='user.name', read_only=True)
 
     spent = serializers.SerializerMethodField()
     remaining = serializers.SerializerMethodField()
@@ -13,7 +14,7 @@ class BudgetSerializer(serializers.ModelSerializer):
         model = Budget
         fields = [
             "id",
-            "user",
+            "display_name",
             "category",
             "account",
             "amount",

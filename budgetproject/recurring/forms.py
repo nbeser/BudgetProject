@@ -61,6 +61,7 @@ class RecurringForm(forms.ModelForm):
                 user=user,
                 is_active=True,
                 is_parent=False,
+                is_system=False,
             )
     
     def save(self, commit=True):

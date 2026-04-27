@@ -34,6 +34,7 @@ class TransactionForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
         user = kwargs.pop("user", None)
+        mode = kwargs.pop("mode", "create")
         super().__init__(*args, **kwargs)
 
         if user:
@@ -41,11 +42,22 @@ class TransactionForm(forms.ModelForm):
                 user=user, is_active=True
             )
 
+            # self.fields["category"].queryset = Category.objects.filter(
+            #     user=user,
+            #     is_active=True,
+            #     is_parent=False,
+            #     is_system=False,
+            # )
+
+            is_system = True if mode in ["edit", "delete"] else False
+
             self.fields["category"].queryset = Category.objects.filter(
                 user=user,
                 is_active=True,
                 is_parent=False,
+                is_system=is_system,
             )
+            
 
     def save(self, commit=True):
         instance = super().save(commit=False)

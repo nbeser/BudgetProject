@@ -19,11 +19,11 @@ class UserLoginForm(AuthenticationForm):
         })
     )
 
-    labels = {
-        "username": "E-mail",
-        "password": "Parola"
-    }
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
+        self.fields['username'].label = "E-mail"
+        self.fields['password'].label = "Parola"
 
 class UserSignupForm(UserCreationForm):
     password1 = forms.CharField(

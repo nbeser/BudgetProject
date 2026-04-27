@@ -2,15 +2,18 @@ from rest_framework import serializers
 from .models import Account
 
 class AccountListSerializer(serializers.ModelSerializer):
-    user = serializers.SlugRelatedField(read_only=True, slug_field="username")
+    # user = serializers.SlugRelatedField(read_only=True, slug_field="username")
+    display_name = serializers.CharField(source='user.name', read_only=True)
+
 
     class Meta:
         model = Account
-        fields = ["user", "name", "account_type", "is_active"]
+        fields = ["user", "display_name", "account_type", "is_active"]
 
 
 class AccountDetailSerializer(serializers.ModelSerializer):
-    user = serializers.SlugRelatedField(read_only=True, slug_field="username")
+    # user = serializers.SlugRelatedField(read_only=True, slug_field="username")
+    display_name = serializers.CharField(source='user.name', read_only=True)
     opening_balance = serializers.DecimalField(max_digits=12, decimal_places=2, write_only=True, required=False)
     balance = serializers.ReadOnlyField()
     class Meta:
@@ -18,7 +21,7 @@ class AccountDetailSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "name",
-            "user",
+            "display_name",
             "account_type",
             "currency",
             "created",

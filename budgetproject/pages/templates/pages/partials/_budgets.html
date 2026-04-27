@@ -54,7 +54,9 @@
 
 </div>
 {% empty %}
-<p>No budgets defined.</p>
+<p>Kayıtlı cüzdan bulunmadı.</p>
+<p><a href="{% url 'budget_register' %}" class="text-decoration-none text-info"><b>Şimdi eklemek ister misin?</b></a></p>
+
 {% endfor %} 
 
 
