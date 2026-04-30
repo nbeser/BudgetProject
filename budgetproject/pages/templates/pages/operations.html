@@ -100,6 +100,29 @@
         </div>
        
     </div>
+
+    <div class="accordion-item">
+        <h2 class="accordion-header bg-success">
+            <button class="accordion-button collapsed bg-success" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseThree"><strong>APIs</strong></button>
+        </h2>
+        <div id="flush-collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
+            <div class="accordion-body"><a style="text-decoration: None;" href="{% url 'account_by_user' %}">Hesaplar</a></div>
+        </div>
+        <div id="flush-collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
+            <div class="accordion-body"><a style="text-decoration: None;" href="{% url 'category_list_create' %}">Kategoriler</a></div>
+        </div>
+        <div id="flush-collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
+            <div class="accordion-body"><a style="text-decoration: None;" href="{% url 'budget_list_create' %}">Harcama Planları</a></div>
+        </div>
+
+        <div id="flush-collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
+            <div class="accordion-body"><a style="text-decoration: None;" href="{% url 'transaction_by_user' %}">Transferler</a></div>
+        </div>
+        <div id="flush-collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
+            <div class="accordion-body"><a style="text-decoration: None;" href="{% url 'recurring_by_user' %}">Kayıtlı Transferler</a></div>
+        </div>
+
+    </div>
     
 </div>
 
