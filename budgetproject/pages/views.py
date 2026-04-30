@@ -10,10 +10,45 @@ from budgets.models import Budget
 from category.models import Category
 from recurring.models import RecurringTransaction
 
+from django.core.cache import cache
+import requests
+import datetime
+
 
 def pages_index(request):
-    
-    return render(request, "pages/index.html")
+    data = cache.get("market_data")
+
+    try:
+        if not data:
+            url = "https://api.exchangerate-api.com/v4/latest/USD"
+            res = requests.get(url, timeout=5).json()
+
+            url_gold = "https://finans.truncgil.com/today.json"
+            res_gold = requests.get(url_gold, timeout=5).json()
+
+            usd_try = res["rates"]["TRY"]
+            eur_try = res["rates"]["TRY"] / res["rates"]["EUR"]
+            time_exchange = datetime.datetime.fromtimestamp(res["time_last_updated"])
+
+            # Gold
+            gram_buy = res_gold["gram-altin"]["Alış"]
+            gram_sell = res_gold["gram-altin"]["Satış"]
+
+            data = {
+                "usd_try": round(usd_try, 2),
+                "eur_try": round(eur_try, 2),
+                "time_exchange": time_exchange,
+                "gram_buy": gram_buy,
+                "gram_sell": gram_sell,
+            }
+
+            cache.set("market_data", data, timeout=60*60*2)
+    except requests.exceptions.RequestException:
+        data = {
+            "rates": [],
+            "cached": True,
+        }
+    return render(request, "pages/index.html", data)
 
 
 @login_required()

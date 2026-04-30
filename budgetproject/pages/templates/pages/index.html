@@ -12,11 +12,11 @@
 
 
 <!-- HERO -->
-<section class="hero text-center py-5">
+<section class="hero text-center bg-light py-5">
     <h1>Herkes için kolay finans programı</h1>
     <p class="mb-5">Paranı pahallı uygulamalar kullanmadan takip et</p>
     {% if user.is_authenticated %}
-    Kullanıcı: <p class="text-secondary"><a href="{% url 'user_dashboard' %}"><strong>{{ user.name }}</strong></a></p> 
+    Kullanıcı: <p class="text-secondary"><a href="{% url 'user_dashboard' %}"><h4><strong>{{ user.name }}</strong></h4></a></p> 
     {% else %}
     <a href="{% url 'user_register' %}" class="btn btn-primary">Kullanmaya Başla</a>
     {% endif %}
@@ -26,35 +26,44 @@
 
 <!-- MARKET -->
 <section class="market container py-4">
-    <h3>Market</h3>
+    <h3 class="text-center mb-4">Piyasa</h3>
     <div class="row text-center">
 
-        <div class="col">
-            <h5>USD/TRY</h5>
-            <p>{{ usd_try }}</p>
-        </div>
-
-        <div class="col">
-            <h5>EUR/TRY</h5>
-            <p>{{ eur_try }}</p>
-        </div>
-
-        <div class="col">
-            <h5>Altın (gram)</h5>
-            <p>{{ gold_try }}</p>
+        <div class="accordion accordion-flush shadow-lg" id="accordionFlushExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    USD/TRY
+                </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body"><strong>{{ usd_try }}</strong> <br> Güncelleme: {{ time_exchange }}</div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                    EUR/TRY
+                </button>
+                </h2>
+                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body"><strong>{{ eur_try }}</strong> <br> Güncelleme: {{ time_exchange }} </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                    Altın(gram)/TRY
+                </button>
+                </h2>
+                <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body"><p>Alış: <strong>{{ gram_buy }}</strong></p> <p>Satış: <strong>{{ gram_sell }}</strong></p> <br> Güncelleme: {{ time_exchange }} </div>
+                </div>
+            </div>
         </div>
 
     </div>
-</section>
 
-
-
-<section class="container py-5">
-    <h2>Neden Önemli</h2>
-    <p>
-        Döviz kurlarındaki dalgalanmalar ve enflasyon, günlük harcamalarınızı doğrudan etkiler. <br>
-        Sayıları bilmek yeterli değil; kendi paranızı takip etmeniz gerekiyor.
-    </p>
 </section>
 
 
@@ -62,19 +71,21 @@
 
 <!-- FEATURES -->
 <section class="container py-5">
-    <h2>Features</h2>
+    <h2>Neler Yapabilirim</h2>
     <ul>
-        <li>Track income & expenses</li>
-        <li>Recurring transactions</li>
-        <li>Multi-currency support</li>
-        <li>Clean and simple interface</li>
+        <li>Gelir & gider takibi</li>
+        <li>İstediğin kadar hesap oluştur</li>
+        <li>İstediğin para birimini hesaplara ata</li>
+        <li>Oluşturduğun kategorilerde işlemler yap</li>
+        <li>Harcama planları oluştur</li>
+        <li>Bütün bilgilerini API olarak indir</li>
     </ul>
 </section>
 
 
 {% if not user.is_authenticated %}
 <section class="text-center py-5">
-    <h3>Start tracking your money today</h3>
+    <h3>Gelir ve giderlerini kontrol etmeye başla</h3>
     <a href="{% url 'user_register' %}" class="btn btn-success">Hesap Oluştur</a>
 </section>
 {% endif %}
