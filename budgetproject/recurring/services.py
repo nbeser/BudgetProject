@@ -37,9 +37,12 @@ def should_run(rule, today):
 
 def run_recurring_transactions():
 
-    today = date.today()
+    today = timezone.localdate()
 
-    recurring_rules = RecurringTransaction.objects.filter(is_active=True)
+    recurring_rules = RecurringTransaction.objects.filter(
+        is_active=True,
+        start_date__lte=today
+    ).select_related("user", "account", "category")
 
     with transaction.atomic():
         for i in recurring_rules:
@@ -47,10 +50,7 @@ def run_recurring_transactions():
             if not should_run(i, today):
                 continue
             if Transaction.objects.filter(
-                user=i.user,
-                account=i.account,
-                category=i.category,
-                amount=i.amount,
+                recurring_rule=i,
                 transaction_date__date=today
             ).exists():
                 continue
@@ -66,7 +66,8 @@ def run_recurring_transactions():
                 amount=i.amount,
                 currency=i.currency,
                 description=i.description,
-                transaction_date=timezone.now()
+                transaction_date=timezone.now(),
+                recurring_rule=i
             )
 
             i.last_run = today

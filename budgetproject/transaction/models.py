@@ -6,6 +6,8 @@ from category.models import Category
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 
+from recurring.models import RecurringTransaction
+from django.db.models.functions import TruncDate
 
 class Transaction(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -20,6 +22,8 @@ class Transaction(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    recurring_rule = models.ForeignKey(RecurringTransaction, null=True, blank=True, on_delete=models.SET_NULL)
+
     def clean(self):
 
         if not self.user_id or not self.account_id or not self.category_id:
@@ -33,10 +37,15 @@ class Transaction(models.Model):
 
         if self.category.is_parent:
             raise ValidationError("Cannot assign transaction to parent category.")
-    
 
-
-
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                TruncDate("transaction_date"),
+                "recurring_rule",
+                name="unique_recurring_per_day"
+            )
+        ]
 
     def save(self, *args, **kwargs):
         self.full_clean()

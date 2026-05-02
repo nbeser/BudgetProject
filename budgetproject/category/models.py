@@ -32,6 +32,13 @@ class Category(models.Model):
                 raise ValidationError("Only one level of nesting allowed.")
             
     def save(self, *args, **kwargs):
+
+        if self.parent:
+            if self.parent.recurring_transactions.exists():
+                raise ValidationError(
+                    "Cannot assign this parent because it is used in recurring transactions."
+                )
+
         if self.parent:
             Category.objects.filter(id=self.parent.id).update(is_parent=True)
         self.full_clean()
