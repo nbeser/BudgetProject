@@ -12,3 +12,13 @@ budgetproject/pages/__pycache__/
 budgetproject/api/__pycache__/
 db.sqlite3
 .gitignore
+
+.env
+__pycache__/
+*.pyc
+db.sqlite3
+budgetproject/db.sqlite3
+budgetproject/staticfiles
+/staticfiles
+/media
+budgetproject/media
