@@ -32,6 +32,7 @@ A web page to trace your incomes and expanses. API features are provided.
 - Frontend: HTML, CSS, Bootstrap, JavaScript
 - Database: PostgreSQL
 - API Design: Versioned REST API (`/api/v1/`)
+- Cron automation
 
 
 
@@ -51,11 +52,10 @@ A web page to trace your incomes and expanses. API features are provided.
 - Clean responsive UI (Bootstrap-based)
 
 ### 🚧 In Progress
-- Recurring Transactions are in progress (only remaining CRUD). 
+- Cron > Celery
 
 ### 🔜 Planned
-- Token management for API,
-- Celery deployment for recurring transactions.
+- AI entegration
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -66,7 +66,9 @@ The project follows a hybrid modular architecture:
 
 ### Core Apps
 - `accounts/` → Account models & business logic
+- `categories/` → Transaction categories
 - `transactions/` → Transaction handling
+- `recurring/` → Recurring Transaction handling
 - `budgets/` → Budget tracking
 
 ### API Layer
@@ -75,9 +77,10 @@ The project follows a hybrid modular architecture:
   - `api/v1/urls/` → Versioned routing
 
 ### Serializers
-- Serializers are kept inside their respective domain apps:
+- Serializers are kept inside their respective domain apps; eg.:
   - `accounts/serializers.py`
   - `transactions/serializers.py`
+    
 
 ### Design Approach
 - Separation of concerns:
