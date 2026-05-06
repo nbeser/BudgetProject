@@ -1,6 +1,9 @@
 from rest_framework import serializers
 from .models import Budget
 
+from account.models import Account
+from category.models import Category
+
 
 class BudgetSerializer(serializers.ModelSerializer):
     # user = serializers.SlugRelatedField(read_only=True, slug_field="username")
@@ -25,6 +28,13 @@ class BudgetSerializer(serializers.ModelSerializer):
             "remaining",
             "progress",
         ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        user = self.context["request"].user
+
+        self.fields["account"].queryset = Account.objects.filter(user=user)
+        self.fields["category"].queryset = Category.objects.filter(user=user, is_system=False)
 
     def get_spent(self, obj):
         return obj.spent_amount
