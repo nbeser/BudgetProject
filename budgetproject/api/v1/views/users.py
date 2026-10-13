@@ -10,6 +10,8 @@ from rest_framework import generics
 from users.serializer import SignUpSerializer, LogInSerializer
 from django.contrib.auth import get_user_model
 
+from .tokens import get_tokens_for_user
+
 User = get_user_model()
 
 
@@ -32,10 +34,12 @@ class LogInView(generics.GenericAPIView):
         user = authenticate(request, username=email, password=password)
 
         if user is not None:
-            token, _ = Token.objects.get_or_create(user=user)
+            # token, _ = Token.objects.get_or_create(user=user)
+            tokens = get_tokens_for_user(user)
             return Response({
                 "message": "Login successful.",
-                "token": token.key
+                # "token": token.key
+                "token": tokens
                 }, status = status.HTTP_200_OK)
         else:
             return Response({"message": "Invalid email or password."}, status=status.HTTP_401_UNAUTHORIZED)

@@ -27,7 +27,7 @@ class SignUpSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_data.pop("password2")
         user = User.objects.create_user(**validated_data)
-        Token.objects.create(user=user)
+        # Token.objects.create(user=user)
         # token, _ = Token.objects.get_or_create(user=user)
         return user 
     
